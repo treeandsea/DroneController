@@ -1,0 +1,52 @@
+# This is a workflow to generate the documentation automatically.
+
+name: Generate Documentation
+
+# Controls when the action will run. Triggers the workflow on push  
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - '**.adoc'
+
+
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install fonts
+      run: |
+        mkdir ~/.fonts
+        cp theme/fonts/*.otf ~/.fonts
+        fc-cache -f -v 
+    - name: Setup Node
+      uses: actions/setup-node@v1.4.1
+    - name: Cache node modules
+      uses: actions/cache@v1.1.2
+      with:
+        path: node_modules
+        key: modules-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          modules-
+    - name: NPM Install
+      run: npm install
+      env:
+        CI: true
+    - name: AsciiDoctor-PDF
+      run: npm run generate-pdf
+    - name: Publish
+      run: |
+        git config --global user.email ${{ secrets.USER_MAIL }}
+        git config --global user.name ${{ secrets.USER_NAME }}
+        git add ./doc
+        git commit -m 'AsciiDoctor-PDF build from Actions'
+        git push --force origin HEAD:${GITHUB_REF#refs/heads/}
