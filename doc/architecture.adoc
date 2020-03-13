@@ -1,0 +1,32 @@
+= Architecture
+
+This describes the architecture of the project with it's different layers.
+
+== Architecture Type
+
+This will be implemented as layer architecture.
+This is useful as we'll have a well defined input and a even more defined output.
+
+== Layers
+
+****
+Input Layer::
+
+The input will be different dictionaries which contains observation key value sets from sensors and dictionaries of the target state of the drone.
+
+****
+
+****
+Calculation Layer::
+
+This will do the actual calculation to satisfy the requested drone state.
+****
+
+****
+Output Layer::
+
+This will return a dictionary containing `n` key value pairs of rotor thrusts.
+How ever the first RC will aim to control four rotors.
+The thrusts are values from 0 to 1. Depending of the type of request it could vary from python dictionary to json object.
+This could be useful if this services runs on a different machine than the requester.
+****
