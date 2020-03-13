@@ -8,12 +8,11 @@ on:
   push:
     branches:
       - master
-
-
 jobs:
   # This workflow contains a single job called "build"
-  generate_doc:
-    # The type of runner that the job will run on
+  gen_doc:
+    runs-on: ubuntu-latest
+    steps:
     - name: build asciidoctor action
       uses: tonynv/asciidoctor-action@v1
 
