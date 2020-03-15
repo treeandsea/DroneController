@@ -1,3 +1,8 @@
+"""
+Main Class and entry point for the project.
+"""
+
+
 def welcome() -> None:
     """
     Greeting method
