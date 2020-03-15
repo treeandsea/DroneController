@@ -441,11 +441,258 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h1>Documentation</h1>
 </div>
 <div id="content">
-
+<div class="sect1">
+<h2 id="_problem">Problem</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The is no open source tool that calculates thrust for DC rotors of drones for a variety of inputs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_requirements">Requirements</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Handle various inputs and calculate the thrust for <code>n</code> DC rotors.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_design">Design</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_architecture">Architecture</h3>
+<div class="paragraph">
+<p>This describes the architecture of the project with it&#8217;s different layers, but unlike convention it will also describe the interface due to simplicity of the project.</p>
+</div>
+<div class="sect3">
+<h4 id="_architecture_type">Architecture Type</h4>
+<div class="paragraph">
+<p>This will be implemented as layer architecture.
+This is useful as we&#8217;ll have a well defined input and a even more defined output.</p>
+</div>
+<div class="paragraph">
+<p>plantuml::uml/class-diagram.puml["{uml}class diagram"]</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+This is not a formal uml diagram but a visualization of the structure.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_layers">Layers</h4>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Input Layer</dt>
+<dd>
+<p>The input will be different dictionaries which contains observation key value sets from sensors and dictionaries of the target state of the drone.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Calculation Layer</dt>
+<dd>
+<p>This will do the actual calculation to satisfy the requested drone state.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Output Layer</dt>
+<dd>
+<p>This will return a dictionary containing <code>n</code> key value pairs of rotor thrusts.
+How ever the first RC will aim to control four rotors.
+The thrusts are values from 0 to 1. Depending of the type of request it could vary from python dictionary to json object.
+This could be useful if this services runs on a different machine than the requester.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_layer_components">Layer Components</h4>
+<div class="sect4">
+<h5 id="_input_layer">Input Layer</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">RequestHandler</dt>
+<dd>
+<p>It expects a dictionary of either a user input, this could be keyboard, game pad or a RC controller, or a computer generated dictionary of a short term expected state of the drone.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>User Input (Keyboard):</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Key</th>
+<th class="tableblock halign-left valign-top">Value Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rotation Forward</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rotation Right</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rotation Backward</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rotation Left</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Acceleration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float in [-1,1]</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The input can actually be a <code>DroneState</code> already.</p>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">DroneStateMapper</dt>
+<dd>
+<p>Maps the input from <code>RequestHandler</code> to expected <code>DroneState</code> for the <code>calculation layer</code>.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">DroneState</dt>
+<dd>
+<p>A wrapper for a dictionary containing the target state of the drone.</p>
+</dd>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Key</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">position</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">three dimensional vector of floats</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">translation velocity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">three dimensional vector of floats</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">angular velocity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">three dimensional vector of floats</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">translation acceleration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">three dimensional vector of floats</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">angular acceleration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">three dimensional vector of floats</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>These can be optional.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_calculation_layer">Calculation Layer</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">ThrustCalculator</dt>
+<dd>
+<p>This expects the momentary <code>DroneState</code> and the expected <code>DroneState</code>.
+It will try to calculate the rotors thrusts to minimize the differences.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_output_layer">Output Layer</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">JSON Wrapper</dt>
+<dd>
+<p>Wraps the <code>n</code> rotor thrusts in a json object and returns it to redirect url.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>Dict Wrapper Wraps the <code>n</code> rotor thrusts in a dictionary and returns it to the python caller.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-15 11:02:00 UTC
+Last updated 2020-03-15 14:40:57 UTC
 </div>
 </div>
 </body>
