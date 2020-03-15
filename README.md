@@ -2,6 +2,15 @@
 # DroneController
 A service for controlling quadrocopters with various inputs.
 
+## Dependencies
+These dependencies are not specified in the requirements because they needed to be installed on the system itselfs.
+- For displaying the uml diagrams in the documentation install `graphviz` and `asciidoctor-diagram`.
+
+For Linux: 
+```console
+apt install graphviz
+gem install asciidoctor-diagram
+```
 
 ## Documentation
 The documentation can be found at our [github pages](https://segelzwerg.github.io/DroneController/).
