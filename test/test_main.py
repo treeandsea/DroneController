@@ -1,3 +1,6 @@
+"""
+Tests the main welcome function.
+"""
 import src.drone_controller.main
 
 
