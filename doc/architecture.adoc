@@ -30,3 +30,78 @@ How ever the first RC will aim to control four rotors.
 The thrusts are values from 0 to 1. Depending of the type of request it could vary from python dictionary to json object.
 This could be useful if this services runs on a different machine than the requester.
 ****
+
+== Layer Components
+
+=== Input Layer
+
+****
+RequestHandler::
+It expects a dictionary of either a user input, this could be keyboard, game pad or a RC controller, or a computer generated dictionary of a short term expected state of the drone.
+
+User Input (Keyboard):
+
+|===
+|Key |Value Type
+
+|Rotation Forward
+|bool
+
+|Rotation Right
+|bool
+
+|Rotation Backward
+|bool
+
+|Rotation Left
+|bool
+
+|Acceleration
+|float in [-1,1]
+
+
+|===
+
+****
+
+****
+DroneStateMapper::
+Maps the input from `RequestHandler` to expected `DroneState` for the `calculation layer`.
+****
+
+****
+DroneState A wrapper for a dictionary containing the target state of the drone.
+
+|===
+|Key |Value
+
+|position
+|three dimensional vector of floats
+
+|translation velocity
+|three dimensional vector of floats
+
+|angular velocity
+|three dimensional vector of floats
+
+|translation acceleration
+|three dimensional vector of floats
+
+|angular acceleration
+|three dimensional vector of floats
+
+|===
+
+****
+
+=== Calculation Layer
+
+****
+
+****
+
+=== Output Layer
+
+****
+
+****
