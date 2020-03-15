@@ -460,6 +460,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="_design">Design</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>require "asciidoctor-diagram"</p>
+</div>
 <div class="sect2">
 <h3 id="_architecture">Architecture</h3>
 <div class="paragraph">
@@ -471,8 +474,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>This will be implemented as layer architecture.
 This is useful as we&#8217;ll have a well defined input and a even more defined output.</p>
 </div>
-<div class="paragraph">
-<p>plantuml::uml/class-diagram.puml["{uml}class diagram"]</p>
+<div class="imageblock">
+<div class="content">
+<img src="uml/class-diagram.png" alt="class diagram" width="507" height="452">
+</div>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -692,7 +697,7 @@ It will try to calculate the rotors thrusts to minimize the differences.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-15 14:51:37 UTC
+Last updated 2020-03-15 15:25:49 UTC
 </div>
 </div>
 </body>
