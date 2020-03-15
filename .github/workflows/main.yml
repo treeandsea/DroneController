@@ -16,16 +16,19 @@ jobs:
     steps:
       - name: Setup Graphviz environment
         uses: kamiazya/setup-graphviz@v1
-      
+
+      - name: Install Asciidoctor diagram
+        run: gem install asciidoctor-diagram
+
       - name: Checkout code
         uses: actions/checkout@v2
-      
+
       - name: Get build container
         id: adocbuild
         uses: avattathil/asciidoctor-action@master
         with:
-            program: "asciidoctor -D docs --backend=html5 -o index.html docs/index.adoc"
-      
+          program: "asciidoctor -r asciidoctor-diagram -D docs --backend=html5 -o index.html docs/index.adoc"
+
       - name: Print execution time
         run: echo "Time ${{ steps.adocbuild.outputs.time }}"
       
