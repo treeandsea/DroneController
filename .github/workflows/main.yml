@@ -24,7 +24,7 @@ jobs:
       - name: Build Sphinx
         uses: ammaraskar/sphinx-action@master
         with:
-          docs_path: "sphinx"
+          docs_path: "sphinx/"
 
       - name: Get build container
         id: adocbuild
