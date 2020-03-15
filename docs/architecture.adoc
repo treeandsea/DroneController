@@ -70,7 +70,8 @@ Maps the input from `RequestHandler` to expected `DroneState` for the `calculati
 ****
 
 ****
-DroneState A wrapper for a dictionary containing the target state of the drone.
+DroneState::
+A wrapper for a dictionary containing the target state of the drone.
 
 |===
 |Key |Value
