@@ -19,5 +19,5 @@ package "Output Layer   " {
 RequestHandler --> ThrustCalculator
 ThrustCalculator --> JsonWrapper
 ThrustCalculator --> DictWrapper
-caption class diagramm
+caption class diagram
 @enduml

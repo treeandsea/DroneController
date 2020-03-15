@@ -7,7 +7,7 @@ This describes the architecture of the project with it's different layers, but u
 This will be implemented as layer architecture.
 This is useful as we'll have a well defined input and a even more defined output.
 
-plantuml::uml/class-diagram.puml["{uml}class diagramm"]
+plantuml::uml/class-diagram.puml["{uml}class diagram"]
 
 IMPORTANT: This is not a formal uml diagram but a visualization of the structure.
 
