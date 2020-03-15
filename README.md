@@ -1,4 +1,4 @@
-![Generate Documentation](https://github.com/Segelzwerg/DroneController/workflows/Generate%20Documentation/badge.svg)
+![Generate Documentation](https://github.com/Segelzwerg/DroneController/workflows/Generate%20Documentation/badge.svg) ![Test and Style](https://github.com/treeandsea/DroneController/workflows/Test%20and%20Code%20Analysis/badge.svg)
 # DroneController
 A service for controlling quadrocopters with various inputs.
 
