@@ -8,6 +8,10 @@ The is no open source tool that calculates thrust for DC rotors of drones for a 
 
 Handle various inputs and calculate the thrust for `n` DC rotors.
 
+== Code Documentation
+
+link:sphinx/index.html[Code documentation]
+
 == Design
 
 include::architecture.adoc[]
