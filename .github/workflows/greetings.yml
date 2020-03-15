@@ -1,0 +1,13 @@
+name: Greetings
+
+on: [pull_request, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/first-interaction@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-message: '#Welcome user!\n Thank you for opening this issue. We most definitely read this but as this project is developed in our free time it may take while.\nThanks for understanding.'
+          pr-message: 'Thank you very much for you contribution. We really appreciate it. We will review this as soon as possible, but as we develop this project in our free time it might take a while.'
