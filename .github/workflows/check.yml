@@ -33,4 +33,4 @@ jobs:
 
       - name: Python Pylint Github Action
         run: |
-          pylint --rcfile=.pylintrc drone_controller
+          pylint --rcfile=.pylintrc -j 2 src test
