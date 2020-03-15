@@ -1,0 +1,24 @@
+@startuml
+skinparam minClassWidth 150
+skinparam min 300
+package "Input Layer  " {
+    class RequestHandler
+    class DroneStateMapper
+
+    RequestHandler *-- DroneStateMapper : contains
+}
+
+package "Calculation Layer   " {
+    class ThrustCalculator
+}
+
+package "Output Layer   " {
+    class JsonWrapper
+    class DictWrapper
+}
+
+RequestHandler --> ThrustCalculator
+ThrustCalculator --> JsonWrapper
+ThrustCalculator --> DictWrapper
+caption class diagramm
+@enduml
