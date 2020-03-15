@@ -50,10 +50,11 @@ We use the following git workflow.
     - **Code Style** Use [PEP8](https://www.python.org/dev/peps/pep-0008/) so the project is easier to read.
     - **Doc String** Write documentation for all you do. This is very important to understand code. Here is a [tutorial](https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html).
     - **Test** Write tests. This should at least include unit test and if necessary integration tests.
-- **Checks** Run our checks to reduce frustration. This include running all tests to prevent regression.
-
-| INFO: Some checks are not added to project like static code checking (e.g. PMD) or coverage tests. But they will in the near time. |
-| --- |
+- **Checks** Run our checks to reduce frustration. This include running all tests to prevent regression. We use `pylint` for checks. You can find the configuration file `.pylintrc` in the root directory.
+The github actions will check on `src` and `test` with:
+```console
+pylint --rcfile=.pylintrc -j 2 src test 
+```
 
 - **Pull Request** 
     - **Base** Create a pull request to the [develop](https://github.com/treeandsea/DroneController/tree/develop) branches unless it is a `hotfix` or documentation then choose [master](https://github.com/treeandsea/DroneController/tree/master) as base.
