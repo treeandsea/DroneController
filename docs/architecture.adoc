@@ -62,6 +62,8 @@ User Input (Keyboard):
 
 |===
 
+The input can actually be a `DroneState` already.
+
 ****
 
 ****
@@ -92,6 +94,8 @@ A wrapper for a dictionary containing the target state of the drone.
 |three dimensional vector of floats
 
 |===
+
+These can be optional.
 
 ****
 
