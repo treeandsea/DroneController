@@ -17,9 +17,6 @@ jobs:
       - name: Setup Graphviz environment
         uses: kamiazya/setup-graphviz@v1
 
-      - name: Install Asciidoctor diagram
-        run: gem install asciidoctor-diagram
-
       - name: Checkout code
         uses: actions/checkout@v2
 
