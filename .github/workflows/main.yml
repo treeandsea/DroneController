@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - master
+      - doc/sphinx
 jobs:
   # This workflow contains a single job called "build"
   gen_doc:
