@@ -1,13 +1,13 @@
-= Architecture
+=== Architecture
 
 This describes the architecture of the project with it's different layers.
 
-== Architecture Type
+==== Architecture Type
 
 This will be implemented as layer architecture.
 This is useful as we'll have a well defined input and a even more defined output.
 
-== Layers
+==== Layers
 
 ****
 Input Layer::
@@ -31,9 +31,9 @@ The thrusts are values from 0 to 1. Depending of the type of request it could va
 This could be useful if this services runs on a different machine than the requester.
 ****
 
-== Layer Components
+==== Layer Components
 
-=== Input Layer
+===== Input Layer
 
 ****
 RequestHandler::
@@ -94,13 +94,13 @@ DroneState A wrapper for a dictionary containing the target state of the drone.
 
 ****
 
-=== Calculation Layer
+===== Calculation Layer
 
 ****
 
 ****
 
-=== Output Layer
+===== Output Layer
 
 ****
 
