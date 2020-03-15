@@ -1,0 +1,123 @@
+=== Architecture
+
+This describes the architecture of the project with it's different layers, but unlike convention it will also describe the interface due to simplicity of the project.
+
+==== Architecture Type
+
+This will be implemented as layer architecture.
+This is useful as we'll have a well defined input and a even more defined output.
+
+plantuml::uml/class-diagram.puml["{uml}class diagram"]
+
+IMPORTANT: This is not a formal uml diagram but a visualization of the structure.
+
+==== Layers
+
+****
+Input Layer::
+
+The input will be different dictionaries which contains observation key value sets from sensors and dictionaries of the target state of the drone.
+
+****
+
+****
+Calculation Layer::
+
+This will do the actual calculation to satisfy the requested drone state.
+****
+
+****
+Output Layer::
+
+This will return a dictionary containing `n` key value pairs of rotor thrusts.
+How ever the first RC will aim to control four rotors.
+The thrusts are values from 0 to 1. Depending of the type of request it could vary from python dictionary to json object.
+This could be useful if this services runs on a different machine than the requester.
+****
+
+==== Layer Components
+
+===== Input Layer
+
+****
+RequestHandler::
+It expects a dictionary of either a user input, this could be keyboard, game pad or a RC controller, or a computer generated dictionary of a short term expected state of the drone.
+
+User Input (Keyboard):
+
+|===
+|Key |Value Type
+
+|Rotation Forward
+|bool
+
+|Rotation Right
+|bool
+
+|Rotation Backward
+|bool
+
+|Rotation Left
+|bool
+
+|Acceleration
+|float in [-1,1]
+
+
+|===
+
+The input can actually be a `DroneState` already.
+
+****
+
+****
+DroneStateMapper::
+Maps the input from `RequestHandler` to expected `DroneState` for the `calculation layer`.
+****
+
+****
+DroneState::
+A wrapper for a dictionary containing the target state of the drone.
+
+|===
+|Key |Value
+
+|position
+|three dimensional vector of floats
+
+|translation velocity
+|three dimensional vector of floats
+
+|angular velocity
+|three dimensional vector of floats
+
+|translation acceleration
+|three dimensional vector of floats
+
+|angular acceleration
+|three dimensional vector of floats
+
+|===
+
+These can be optional.
+
+****
+
+===== Calculation Layer
+
+****
+ThrustCalculator::
+This expects the momentary `DroneState` and the expected `DroneState`.
+It will try to calculate the rotors thrusts to minimize the differences.
+****
+
+===== Output Layer
+
+****
+JSON Wrapper::
+Wraps the `n` rotor thrusts in a json object and returns it to redirect url.
+****
+
+****
+Dict Wrapper Wraps the `n` rotor thrusts in a dictionary and returns it to the python caller.
+****
