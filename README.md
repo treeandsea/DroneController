@@ -10,3 +10,6 @@ For Linux:
 ```console
 apt install graphviz
 ```
+
+## Documentation
+The documentation can be found at our [github pages](https://segelzwerg.github.io/DroneController/).
