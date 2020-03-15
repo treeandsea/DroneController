@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - master
+
 jobs:
   # This workflow contains a single job called "build"
   gen_doc:
@@ -17,8 +18,30 @@ jobs:
       - name: Setup Graphviz environment
         uses: kamiazya/setup-graphviz@v1
 
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.8'
+          architecture: 'x64'
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r ./requirements.txt
+
+      - name: Build Sphinx
+        run: sphinx-build -b html sphinx docs/sphinx
 
       - name: Get build container
         id: adocbuild
@@ -28,7 +51,7 @@ jobs:
 
       - name: Print execution time
         run: echo "Time ${{ steps.adocbuild.outputs.time }}"
-      
+
       - name: Deploy docs to ghpages
         uses: peaceiris/actions-gh-pages@v3
         with:
