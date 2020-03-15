@@ -18,6 +18,9 @@ jobs:
       - name: Setup Graphviz environment
         uses: kamiazya/setup-graphviz@v1
 
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
       - name: Setup Python
         uses: actions/setup-python@v1
         with:
