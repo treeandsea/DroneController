@@ -13,4 +13,4 @@ gem install asciidoctor-diagram
 ```
 
 ## Documentation
-The documentation can be found at our [github pages](https://segelzwerg.github.io/DroneController/).
+The documentation can be found at our [github pages](https://treeandsea.github.io/DroneController/).
