@@ -9,6 +9,8 @@ This is useful as we'll have a well defined input and a even more defined output
 
 plantuml::uml/class-diagram.puml["{uml}class diagramm"]
 
+IMPORTANT: This is not a formal uml diagram but a visualization of the structure.
+
 ==== Layers
 
 ****
