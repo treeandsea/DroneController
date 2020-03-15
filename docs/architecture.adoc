@@ -1,6 +1,6 @@
 === Architecture
 
-This describes the architecture of the project with it's different layers.
+This describes the architecture of the project with it's different layers, but unlike convention it will also describe the interface due to simplicity of the project.
 
 ==== Architecture Type
 
