@@ -1,6 +1,5 @@
 @startuml
 skinparam minClassWidth 150
-skinparam min 300
 package "Input Layer  " {
     class RequestHandler
     class DroneStateMapper
