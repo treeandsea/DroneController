@@ -102,7 +102,9 @@ These can be optional.
 ===== Calculation Layer
 
 ****
-
+ThrustCalculator::
+This expects the momentary `DroneState` and the expected `DroneState`.
+It will try to calculate the rotors thrusts to minimize the differences.
 ****
 
 ===== Output Layer
