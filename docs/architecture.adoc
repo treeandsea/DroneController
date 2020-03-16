@@ -119,5 +119,6 @@ Wraps the `n` rotor thrusts in a json object and returns it to redirect url.
 ****
 
 ****
-Dict Wrapper Wraps the `n` rotor thrusts in a dictionary and returns it to the python caller.
+Dict Wrapper::
+Wraps the `n` rotor thrusts in a dictionary and returns it to the python caller.
 ****
