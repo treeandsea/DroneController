@@ -31,8 +31,13 @@ jobs:
         run: |
           pylint --rcfile=.pylintrc -j 2 src test
 
-      - name: Python Pytest Github Action
+      - name: Python Pytest with Coverage
         run: |
-          pytest
+          pytest --cov=./ --cov-report=xml
 
+      - name: Upload to codecoverage
+        uses: codecov/codecov-action@v1.0.6
+        with:
+          file: ./coverage.xml
+          fail_ci_if_error: true
 
