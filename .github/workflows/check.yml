@@ -27,10 +27,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Python Pylint Github Action
+        run: |
+          pylint --rcfile=.pylintrc -j 2 src test
+
       - name: Python Pytest Github Action
         run: |
           pytest
 
-      - name: Python Pylint Github Action
-        run: |
-          pylint --rcfile=.pylintrc -j 2 src test
+
