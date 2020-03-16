@@ -1,3 +1,4 @@
 sphinx
 pylint
 pytest
+pytest-cov
