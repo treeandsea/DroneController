@@ -2,3 +2,4 @@ sphinx
 pylint
 pytest
 pytest-cov
+sphinx_glpi_theme
