@@ -2,10 +2,12 @@ Welcome to DroneController's documentation!
 ===========================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
-.. automodule:: drone_controller.main
+.. automodule:: src.drone_controller.main
+    :members:
+.. automodule:: test.test_main
     :members:
 
 Indices and tables
