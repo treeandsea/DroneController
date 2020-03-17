@@ -29,6 +29,9 @@ def test_create_three_dimensional_position():
 
 
 def test_three_validation():
+    """
+    test if invalid position causes exception
+    """
     with raises(DroneStateError) as exception:
         position = [1, 1]
         velocity = [1, 1, 1]
@@ -39,4 +42,4 @@ def test_three_validation():
                                         acceleration_ang)
 
         state_dict = drone_state.state
-        assert "position is invalid" in str(exception.value)
+        assert f"position is invalid{1}", position in str(exception.value)
