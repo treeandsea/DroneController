@@ -41,5 +41,6 @@ def test_three_validation():
         drone_state = DroneState.create(position, velocity, velocity_ang, acceleration,
                                         acceleration_ang)
 
-        state_dict = drone_state.state
+        # pylint: disable=unused-variable
+        state = drone_state.state
         assert f"position is invalid{1}", position in str(exception.value)
