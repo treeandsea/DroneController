@@ -31,4 +31,4 @@ class DroneState:
         :param acceleration: 3D vector of the drone's translation acceleration
         :param acceleration_ang: 3D vector of the drone's angular acceleration
         """
-        cls(position, velocity, velocity_ang, acceleration, acceleration_ang)
+        return cls(position, velocity, velocity_ang, acceleration, acceleration_ang)
