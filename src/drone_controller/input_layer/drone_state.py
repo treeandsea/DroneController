@@ -1,4 +1,8 @@
 class DroneState:
+    """
+    Wrapper class for the state of the drone.
+    """
+
     def __init__(self, position, velocity, velocity_ang, acceleration, acceleration_ang):
         self._position = position
         self._velocity = velocity
