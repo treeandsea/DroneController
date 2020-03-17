@@ -40,10 +40,20 @@ class DroneState:
         :param acceleration: 3D vector of the drone's translation acceleration
         :param acceleration_ang: 3D vector of the drone's angular acceleration
         """
-        if not len(position) == 3:
-            raise DroneStateError(f"The input position is invalid {1}",
-                                  position)
+        cls.check_input(position, 'position')
+        cls.check_input(velocity, 'velocity')
+        cls.check_input(velocity_ang, 'angular velocity')
+        cls.check_input(acceleration, 'acceleration')
+        cls.check_input(acceleration_ang, 'angular acceleration')
         return cls(position, velocity, velocity_ang, acceleration, acceleration_ang)
+
+    @classmethod
+    def check_input(cls, parameter, name):
+        if not len(parameter) == 3:
+            raise DroneStateError('DroneState.create()',
+                                  (f'The input {1} is invalid {2}',
+                                   name,
+                                   parameter))
 
 
 class DroneStateError(DroneControllerError):
