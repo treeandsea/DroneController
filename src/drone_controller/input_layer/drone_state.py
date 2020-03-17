@@ -40,6 +40,8 @@ class DroneState:
         :param acceleration: 3D vector of the drone's translation acceleration
         :param acceleration_ang: 3D vector of the drone's angular acceleration
         """
+        if not len(position) == 3: raise DroneStateError(f"The input position is invalid {1}",
+                                                         position)
         return cls(position, velocity, velocity_ang, acceleration, acceleration_ang)
 
 
