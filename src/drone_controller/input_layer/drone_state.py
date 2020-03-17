@@ -1,3 +1,7 @@
+# pylint: disable=too-many-arguments
+# a wrapper class needs more parameter
+
+
 class DroneState:
     """
     Wrapper class for the state of the drone.
