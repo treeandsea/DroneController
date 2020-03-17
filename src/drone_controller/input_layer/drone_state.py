@@ -6,20 +6,20 @@ class DroneState:
         self._acceleration = acceleration
         self._acceleration_ang = acceleration_ang
 
-        @property
-        def state(self):
-            """
-            Maps the drone state to a dictionary.
-            :param self: this drone state
-            :return: dictionary
-            """
-            return {
-                "Position": self._position,
-                "Velocity": self._velocity,
-                "Angular Velocity": self._velocity_ang,
-                "Acceleration": self._acceleration,
-                "Angular Acceleration": self._acceleration_ang
-            }
+    @property
+    def state(self):
+        """
+        Maps the drone state to a dictionary.
+        :param self: this drone state
+        :return: dictionary
+        """
+        return {
+            "Position": self._position,
+            "Velocity": self._velocity,
+            "Angular Velocity": self._velocity_ang,
+            "Acceleration": self._acceleration,
+            "Angular Acceleration": self._acceleration_ang
+        }
 
     @classmethod
     def create(cls, position, velocity, velocity_ang, acceleration, acceleration_ang):
