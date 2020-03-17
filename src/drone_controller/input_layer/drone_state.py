@@ -1,5 +1,6 @@
 # pylint: disable=too-many-arguments
 # a wrapper class needs more parameter
+from src.drone_controller.exception.exceptions import DroneControllerError
 
 
 class DroneState:
@@ -40,3 +41,14 @@ class DroneState:
         :param acceleration_ang: 3D vector of the drone's angular acceleration
         """
         return cls(position, velocity, velocity_ang, acceleration, acceleration_ang)
+
+
+class DroneStateError(DroneControllerError):
+    """
+    Invalid drone state.
+    """
+
+    def __init__(self, expression, message):
+        super().__init__()
+        self.expression = expression
+        self.message = message
