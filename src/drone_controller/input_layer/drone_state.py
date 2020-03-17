@@ -2,4 +2,4 @@ class DroneState:
     """
     Wrapper for drone state.
     """
-    pass
+    raise NotImplementedError
