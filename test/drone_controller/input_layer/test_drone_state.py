@@ -10,7 +10,8 @@ def test_create_three_dimensional_position():
     velocity_ang = [1, 1, 1]
     acceleration = [1, 1, 1]
     acceleration_ang = [1, 1, 1]
-    drone_state = DroneState.create(position, velocity, velocity_ang, acceleration, acceleration_ang)
+    drone_state = DroneState.create(position, velocity, velocity_ang, acceleration,
+                                    acceleration_ang)
 
     expected_dict = {
         "Position": position,
