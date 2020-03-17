@@ -2,6 +2,9 @@ from src.drone_controller.input_layer.drone_state import DroneState
 
 
 def test_create_three_dimensional_position():
+    """
+    Test dict generation for a three dimensional position.
+    """
     position = [1, 1, 1]
     velocity = [1, 1, 1]
     velocity_ang = [1, 1, 1]
