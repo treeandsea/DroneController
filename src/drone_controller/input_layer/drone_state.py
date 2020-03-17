@@ -22,7 +22,7 @@ class DroneState:
             }
 
     @classmethod
-    def create_three_dimensional_position(cls, position, velocity, velocity_ang, acceleration, acceleration_ang):
+    def create(cls, position, velocity, velocity_ang, acceleration, acceleration_ang):
         """
         Uses a three dimensional position vector, containing x,y,z coordinates.
         :param position: 3D vector of the drone's position
