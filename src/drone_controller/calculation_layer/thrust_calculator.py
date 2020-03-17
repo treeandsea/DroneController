@@ -1,3 +1,4 @@
+# pylint: disable=too-few-public-methods
 class ThrustCalculator:
     """
     Calculator for rotor thrusts.
@@ -16,4 +17,4 @@ class ThrustCalculator:
         Calculates the thrust.
         :param rotor_count: the number of rotors the calculator should calculate.
         """
-        pass
+        raise NotImplementedError
