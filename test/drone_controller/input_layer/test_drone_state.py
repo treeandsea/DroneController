@@ -28,7 +28,7 @@ def test_create_three_dimensional_position():
     assert state_dict == expected_dict
 
 
-def test_three_validation():
+def test_three_dim_pos_validation():
     """
     test if invalid position causes exception
     """
@@ -44,3 +44,21 @@ def test_three_validation():
         # pylint: disable=unused-variable
         state = drone_state.state
         assert f"position is invalid{1}", position in str(exception.value)
+
+
+def test_three_dim_vel_validation():
+    """
+    test if invalid velocity causes exception
+    """
+    with raises(DroneStateError) as exception:
+        position = [1, 1, 1]
+        velocity = [1, 1]
+        velocity_ang = [1, 1, 1]
+        acceleration = [1, 1, 1]
+        acceleration_ang = [1, 1, 1]
+        drone_state = DroneState.create(position, velocity, velocity_ang, acceleration,
+                                        acceleration_ang)
+
+        # pylint: disable=unused-variable
+        state = drone_state.state
+        assert f"velocity is invalid{1}", velocity in str(exception.value)
