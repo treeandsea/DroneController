@@ -49,6 +49,11 @@ class DroneState:
 
     @classmethod
     def check_input(cls, parameter, name):
+        """
+        Checks a parameter if it's three dimensional.
+        :param parameter: the parameter itself
+        :param name: it's name for error printing
+        """
         if not len(parameter) == 3:
             raise DroneStateError('DroneState.create()',
                                   (f'The input {1} is invalid {2}',
