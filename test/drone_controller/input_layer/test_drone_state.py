@@ -1,4 +1,6 @@
-from src.drone_controller.input_layer.drone_state import DroneState
+from pytest import raises
+
+from src.drone_controller.input_layer.drone_state import DroneState, DroneStateError
 
 
 def test_create_three_dimensional_position():
@@ -24,3 +26,17 @@ def test_create_three_dimensional_position():
     state_dict = drone_state.state
 
     assert state_dict == expected_dict
+
+
+def test_three_validation():
+    with raises(DroneStateError) as exception:
+        position = [1, 1]
+        velocity = [1, 1, 1]
+        velocity_ang = [1, 1, 1]
+        acceleration = [1, 1, 1]
+        acceleration_ang = [1, 1, 1]
+        drone_state = DroneState.create(position, velocity, velocity_ang, acceleration,
+                                        acceleration_ang)
+
+        state_dict = drone_state.state
+        assert "position is invalid" in str(exception.value)
