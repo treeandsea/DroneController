@@ -13,7 +13,7 @@ class RequestHandler:
     """
 
     def __init__(self, aircraft_type):
-        if aircraft_type is 'Quadrocopter':
+        if aircraft_type == 'Quadrocopter':
             self._thrust_calc = ThrustCalculatorQuadroCopter()
         else:
             raise NotImplementedError("This type '{}' is not implemented yet", str(aircraft_type))
