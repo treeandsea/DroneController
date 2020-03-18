@@ -34,19 +34,19 @@ jobs:
       - name: Radon Complexity Check
         id: cc
         run: |
-          echo ::set-output name=result::radon cc ./src -s -j
+          radon cc ./src -s -j > cc.json
 
       - name: Radon Maintainabilty Check
         id: mi
         run: |
-          echo ::set-output name=result::radon mi ./src -j
+          radon mi ./src -j > mi.json
 
       - name: comment PR
         uses: unsplash/comment-on-pr@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          msg: ${{ steps.cc.outputs.result }} + "\n" +${{ steps.mi.outputs.result }}
+          msg: cat cc.json
 
       - name: Python Pytest with Coverage
         run: |
