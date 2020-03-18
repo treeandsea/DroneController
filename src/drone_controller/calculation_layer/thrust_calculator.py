@@ -1,20 +1,16 @@
 # pylint: disable=too-few-public-methods
-class ThrustCalculator:
+from src.drone_controller.input_layer.drone_state import DroneState
+
+
+class ThrustCalculatorQuadroCopter:
     """
     Calculator for rotor thrusts.
     """
 
-    def __init__(self, drone_state, expected_state):
-        """
-        :param drone_state: the momentary drone state
-        :param expected_state: the expected state of the dron
-        """
-        self.drone_state = drone_state
-        self.expected_state = expected_state
-
-    def calc(self, rotor_count):
+    def calc(self, drone_state: DroneState, expected_state: DroneState):
         """
         Calculates the thrust.
-        :param rotor_count: the number of rotors the calculator should calculate.
+        :param drone_state: the momentary drone state
+        :param expected_state: the expected state of the drone
         """
         raise NotImplementedError
