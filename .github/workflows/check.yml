@@ -31,22 +31,17 @@ jobs:
         run: |
           pylint --rcfile=.pylintrc -j 2 src test
 
-      - name: Radon Complexity Check
+      - name: Radon CC & MI
         id: cc
         run: |
-          radon cc ./src -s -j > cc.json
+          radon cc ./src -s -j > radon/cc.json
+          radon mi ./src -j > radon/mi.json
 
-      - name: Radon Maintainabilty Check
-        id: mi
-        run: |
-          radon mi ./src -j > mi.json
-
-      - name: comment PR
-        uses: unsplash/comment-on-pr@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Radon
+        uses: actions/upload-artifact@v1
         with:
-          msg: cat cc.json
+          name: radon
+          path: radon
 
       - name: Python Pytest with Coverage
         run: |
