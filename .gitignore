@@ -131,3 +131,4 @@ dmypy.json
 /docs/sphinx/
 /docs/.asciidoctor/
 /docs/uml/class-diagram.png
+/docs/deps.svg
