@@ -16,6 +16,9 @@ class RequestHandlerTest(TestCase):
     def setUp(self) -> None:
         self.handler = RequestHandler("Quadrocopter")
 
+    def test_keyboard_input(self):
+        raise NotImplementedError("Too much stuff is missing right now.")
+
     def test_keyboard_input_exception(self):
         with raises(UserInputError):
             drone_state = Mock(DroneState)
