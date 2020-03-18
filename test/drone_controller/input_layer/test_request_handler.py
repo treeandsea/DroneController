@@ -9,11 +9,18 @@ from src.drone_controller.input_layer.request_handler import RequestHandler
 
 
 class RequestHandlerTest(TestCase):
+    """
+    Test the RequestHandler
+    """
+
     def setUp(self) -> None:
         self.handler = RequestHandler("Quadrocopter")
 
     @skip("Not enough dependencies implemented.")
     def test_keyboard_input(self):
+        """
+        Test if a thrust dictionary for a quadrocopter is returned.
+        """
         raise NotImplementedError("Too much stuff is missing right now.")
 
     def test_keyboard_input_exception(self):
