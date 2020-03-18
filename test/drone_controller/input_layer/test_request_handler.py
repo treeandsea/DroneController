@@ -1,4 +1,4 @@
-from unittest import TestCase
+from unittest import TestCase, skip
 from unittest.mock import Mock
 
 from pytest import raises
@@ -16,6 +16,7 @@ class RequestHandlerTest(TestCase):
     def setUp(self) -> None:
         self.handler = RequestHandler("Quadrocopter")
 
+    @skip("Not enough dependencies implemented.")
     def test_keyboard_input(self):
         raise NotImplementedError("Too much stuff is missing right now.")
 
