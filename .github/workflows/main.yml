@@ -53,7 +53,7 @@ jobs:
         id: adocbuild
         uses: avattathil/asciidoctor-action@master
         with:
-          program: "asciidoctor -r asciidoctor-diagram -D docs --backend=html5 -o index.html docs/index.adoc"
+          program: "asciidoctor -r asciidoctor-diagram -D docs --backend=html5 -a toc=left -o index.html docs/index.adoc"
 
       - name: Print execution time
         run: echo "Time ${{ steps.adocbuild.outputs.time }}"
