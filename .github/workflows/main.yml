@@ -8,7 +8,6 @@ on:
   push:
     branches:
       - master
-      - feature/pydep
 
 jobs:
   # This workflow contains a single job called "build"
