@@ -63,10 +63,4 @@ class DroneState:
 
 class DroneStateError(DroneControllerError):
     """
-    Invalid drone state.
-    """
-
-    def __init__(self, expression, message):
-        super().__init__()
-        self.expression = expression
-        self.message = message
+    raise NotImplementedError

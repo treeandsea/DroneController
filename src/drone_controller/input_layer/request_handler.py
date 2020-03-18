@@ -1,7 +1,7 @@
 """
 This module handles all requests. This will cover REST calls as well as native python calls.
 """
-from src.drone_controller.calculation_layer.thrust_calculator import ThrustCalculator
+from src.drone_controller.calculation_layer.thrust_calculator import ThrustCalculatorQuadroCopter
 from src.drone_controller.exception.exceptions import UserInputError
 from src.drone_controller.input_layer.drone_state import DroneState
 from src.drone_controller.input_layer.drone_state_mapper import DroneStateMapper
@@ -12,11 +12,13 @@ class RequestHandler:
     Handles request from python code.
     """
 
-    def __init__(self, drone_state, expected_state):
-        self._thrust_calc = ThrustCalculator(drone_state, expected_state)
+    def __init__(self, aircraft_type):
+        if aircraft_type is 'Quadrocopter':
+            self._thrust_calc = ThrustCalculatorQuadroCopter()
+        else:
+            raise NotImplementedError("This type '{}' is not implemented yet", str(aircraft_type))
 
-    @classmethod
-    def keyboard_input(cls, drone_state: DroneState, user_input: dict):
+    def keyboard_input(self, drone_state: DroneState, user_input: dict):
         """
         Handles user input and will call the thrust calculator.
         :param drone_state: the momentary state of the drone
@@ -31,11 +33,11 @@ class RequestHandler:
 
         state_mapper = DroneStateMapper()
         expected_state = state_mapper.keyboard(user_input)
-        cls(drone_state, expected_state)
+        return self.calc(drone_state, expected_state)
 
-    def calc_quadro(self):
+    def calc(self, drone_state, expected_state):
         """
         Calls to the thrust calculator to compute the thrust for four rotors.
         :return: thrusts for four rotor
         """
-        return self._thrust_calc.calc(4)
+        return self._thrust_calc.calc(drone_state, expected_state)
