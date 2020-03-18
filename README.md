@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6a2f89128304486ba1d86b9fcd111284)](https://app.codacy.com/gh/treeandsea/DroneController?utm_source=github.com&utm_medium=referral&utm_content=treeandsea/DroneController&utm_campaign=Badge_Grade_Dashboard)
 ![Generate Documentation](https://github.com/Segelzwerg/DroneController/workflows/Generate%20Documentation/badge.svg) ![Test and Style](https://github.com/treeandsea/DroneController/workflows/Test%20and%20Code%20Analysis/badge.svg) [![Slack](https://img.shields.io/badge/chat-onSlack-brightgreen)](https://app.slack.com/client/TSFE416AW/C0101ADT90D) [![codecov](https://codecov.io/gh/treeandsea/DroneController/branch/master/graph/badge.svg)](https://codecov.io/gh/treeandsea/DroneController)
 # DroneController
 A service for controlling quadrocopters with various inputs.
