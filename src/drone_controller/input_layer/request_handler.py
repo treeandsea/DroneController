@@ -16,7 +16,8 @@ class RequestHandler:
         if aircraft_type == 'Quadrocopter':
             self._thrust_calc = ThrustCalculatorQuadroCopter()
         else:
-            raise NotImplementedError("This type '{}' is not implemented yet", str(aircraft_type))
+            raise NotImplementedError(f'This type {1} is not implemented yet',
+                                      aircraft_type)
 
     def keyboard_input(self, drone_state: DroneState, user_input: dict):
         """
