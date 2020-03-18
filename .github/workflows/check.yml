@@ -31,6 +31,23 @@ jobs:
         run: |
           pylint --rcfile=.pylintrc -j 2 src test
 
+      - name: Radon Complexity Check
+        id: cc
+        run: |
+          echo ::set-output name=result::radon cc ./src -s -j
+
+      - name: Radon Maintainabilty Check
+        id: mi
+        run: |
+          echo ::set-output name=result::radon mi ./src -j
+
+      - name: comment PR
+        uses: unsplash/comment-on-pr@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          msg: ${{ steps.cc.outputs.result }} + "\n" +${{ steps.mi.outputs.result }}
+
       - name: Python Pytest with Coverage
         run: |
           pytest --cov=./ --cov-report=xml
