@@ -64,3 +64,4 @@ class DroneState:
 class DroneStateError(DroneControllerError):
     """
     raise NotImplementedError
+    """
