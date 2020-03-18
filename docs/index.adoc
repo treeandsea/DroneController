@@ -28,3 +28,7 @@ gem install asciidoctor-diagram
 == Design
 
 include::architecture.adoc[]
+
+== Dependency Graph
+
+image::deps.svg[Dependency]
