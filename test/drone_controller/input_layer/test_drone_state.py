@@ -45,7 +45,6 @@ def test_three_dim_pos_validation():
         state = drone_state.state
 
 
-
 def test_three_dim_vel_validation():
     """
     test if invalid velocity causes exception
