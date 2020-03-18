@@ -1,0 +1,23 @@
+from unittest import TestCase
+from unittest.mock import Mock
+
+from pytest import raises
+
+from src.drone_controller.exception.exceptions import UserInputError
+from src.drone_controller.input_layer.drone_state import DroneState
+from src.drone_controller.input_layer.request_handler import RequestHandler
+
+
+class UserInputErro(object):
+    pass
+
+
+class RequestHandlerTest(TestCase):
+    def setUp(self) -> None:
+        self.handler = RequestHandler("Quadrocopter")
+
+    def test_keyboard_input_exception(self):
+        with raises(UserInputError):
+            drone_state = Mock(DroneState)
+            user_input = {'velocity': [1, 1, 1]}
+            self.handler.keyboard_input(drone_state, user_input)
