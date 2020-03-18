@@ -8,10 +8,6 @@ from src.drone_controller.input_layer.drone_state import DroneState
 from src.drone_controller.input_layer.request_handler import RequestHandler
 
 
-class UserInputErro(object):
-    pass
-
-
 class RequestHandlerTest(TestCase):
     def setUp(self) -> None:
         self.handler = RequestHandler("Quadrocopter")
