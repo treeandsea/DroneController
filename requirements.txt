@@ -4,3 +4,4 @@ pytest
 pytest-cov
 sphinx_glpi_theme
 pydeps
+radon

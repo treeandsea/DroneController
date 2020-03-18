@@ -31,6 +31,19 @@ jobs:
         run: |
           pylint --rcfile=.pylintrc -j 2 src test
 
+      - name: Radon CC & MI
+        id: cc
+        run: |
+          mkdir radon
+          radon cc ./src -s -j > radon/cc.json
+          radon mi ./src -j > radon/mi.json
+
+      - name: Upload Radon
+        uses: actions/upload-artifact@v1
+        with:
+          name: radon
+          path: radon
+
       - name: Python Pytest with Coverage
         run: |
           pytest --cov=./ --cov-report=xml
