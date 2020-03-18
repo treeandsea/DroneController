@@ -34,6 +34,7 @@ jobs:
       - name: Radon CC & MI
         id: cc
         run: |
+          mkdir radon
           radon cc ./src -s -j > radon/cc.json
           radon mi ./src -j > radon/mi.json
 
