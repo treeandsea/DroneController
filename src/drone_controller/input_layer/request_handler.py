@@ -34,9 +34,9 @@ class RequestHandler:
 
         state_mapper = DroneStateMapper()
         expected_state = state_mapper.keyboard(user_input)
-        return self.calc(drone_state, expected_state)
+        return self._calc(drone_state, expected_state)
 
-    def calc(self, drone_state, expected_state):
+    def _calc(self, drone_state, expected_state):
         """
         Calls to the thrust calculator to compute the thrust for four rotors.
         :return: thrusts for four rotor
