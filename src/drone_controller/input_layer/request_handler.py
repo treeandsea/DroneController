@@ -7,6 +7,9 @@ from src.drone_controller.input_layer.drone_state import DroneState
 from src.drone_controller.input_layer.drone_state_mapper import DroneStateMapper
 
 
+# pylint: disable=too-few-public-methods
+
+
 class RequestHandler:
     """
     Handles request from python code.
