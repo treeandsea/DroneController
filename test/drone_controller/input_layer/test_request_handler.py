@@ -21,6 +21,9 @@ class RequestHandlerTest(TestCase):
         raise NotImplementedError("Too much stuff is missing right now.")
 
     def test_keyboard_input_exception(self):
+        """
+        Test if exception is thrown upon wrong user input.
+        """
         with raises(UserInputError):
             drone_state = Mock(DroneState)
             user_input = {'velocity': [1, 1, 1]}
