@@ -15,6 +15,7 @@ def check_input(parameter, name):
                                name,
                                parameter))
 
+
 # pylint: disable=too-few-public-methods
 class DroneState:
     """
@@ -63,6 +64,10 @@ class DroneStateError(DroneControllerError):
     """
 
     def __init__(self, expression, message):
+        """
+        Is raised when the drone state receives invalid data.
+        :rtype: DroneStateError
+        """
         super().__init__()
         self.expression = expression
         self.message = message
