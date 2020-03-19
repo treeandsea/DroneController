@@ -15,7 +15,7 @@ def check_input(parameter, name):
                                name,
                                parameter))
 
-
+# pylint: disable=too-few-public-methods
 class DroneState:
     """
     Wrapper class for the state of the drone.
@@ -42,7 +42,7 @@ class DroneState:
         self._acceleration_ang = acceleration_ang
 
     @property
-    def state(self):
+    def state_dict(self):
         """
         Maps the drone state to a dictionary.
         :param self: this drone state

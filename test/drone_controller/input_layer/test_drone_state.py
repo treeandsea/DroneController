@@ -23,7 +23,7 @@ def test_create_three_dimensional_position():
         "Angular Acceleration": acceleration_ang
     }
 
-    state_dict = drone_state.state
+    state_dict = drone_state.state_dict
 
     assert state_dict == expected_dict
 
@@ -42,7 +42,7 @@ def test_three_dim_pos_validation():
                                  acceleration_ang)
 
         # pylint: disable=unused-variable
-        state = drone_state.state
+        state = drone_state.state_dict
 
 
 def test_three_dim_vel_validation():
@@ -59,4 +59,4 @@ def test_three_dim_vel_validation():
                                  acceleration_ang)
 
         # pylint: disable=unused-variable
-        state = drone_state.state
+        state = drone_state.state_dict
