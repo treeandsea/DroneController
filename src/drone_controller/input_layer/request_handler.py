@@ -22,7 +22,7 @@ class RequestHandler:
             raise NotImplementedError(f'This type {1} is not implemented yet',
                                       aircraft_type)
 
-    def keyboard_input(self, drone_state: DroneState, user_input: dict):
+    def keyboard_input(self, drone_state: DroneState, user_input: dict) -> dict:
         """
         Handles user input and will call the thrust calculator.
         :param drone_state: the momentary state of the drone
