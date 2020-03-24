@@ -27,6 +27,7 @@ class RequestHandler:
         Handles user input and will call the thrust calculator.
         :param drone_state: the momentary state of the drone
         :param user_input: keyboard input of the user
+        :return: thrust dictionary
         """
         if not all(key in user_input for key in ["Rotation Forward",
                                                  "Rotation Right",
