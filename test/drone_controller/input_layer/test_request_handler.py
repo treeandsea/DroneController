@@ -1,5 +1,4 @@
 from unittest import TestCase, skip
-from unittest.mock import Mock
 
 from pytest import raises
 
@@ -28,6 +27,6 @@ class RequestHandlerTest(TestCase):
         Test if exception is thrown upon wrong user input.
         """
         with raises(UserInputError):
-            drone_state = Mock(DroneState)
+            drone_state = DroneState([0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0])
             user_input = {'velocity': [1, 1, 1]}
             self.handler.keyboard_input(drone_state, user_input)
