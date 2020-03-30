@@ -3,10 +3,10 @@ from src.drone_controller.input_layer.drone_state_mapper import DroneStateMapper
 
 
 def test_keyboard_simple_up():
-    position = [0, 0, 3]
-    velocity = [0, 0, 3]
+    position = [0, 0, 1]
+    velocity = [0, 0, 1]
     velocity_ang = [0, 0, 0]
-    acceleration = [0, 0, 3]
+    acceleration = [0, 0, 1]
     acceleration_ang = [0, 0, 0]
 
     expected_state = DroneState(position, velocity, velocity_ang, acceleration, acceleration_ang)
@@ -20,7 +20,7 @@ def test_keyboard_simple_up():
                   'Rotation Right': 0,
                   "Rotation Backward": 0,
                   "Rotation Left": 0,
-                  "Acceleration": 3}
+                  "Acceleration": 1}
 
     mapper = DroneStateMapper()
     future_state: DroneState = mapper.keyboard(drone_state, user_input)
