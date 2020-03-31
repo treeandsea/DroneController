@@ -63,6 +63,11 @@ class DroneState:
 
     @classmethod
     def from_dict(cls, state: dict):
+        """
+        Creates a drone state from dict.
+        :param state: dict with drone state fields
+        :return: a DroneState instance
+        """
         position = state['Position']
         rotation = state['Rotation']
         velocity = state['Velocity']
