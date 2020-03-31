@@ -61,6 +61,17 @@ class DroneState:
             "Angular Acceleration": self._acceleration_ang
         }
 
+    @classmethod
+    def from_dict(cls, state: dict):
+        position = state['Position']
+        rotation = state['Rotation']
+        velocity = state['Velocity']
+        velocity_ang = state['Angular Velocity']
+        acceleration = state['Acceleration']
+        acceleration_ang = state['Angular Acceleration']
+        return cls(position, rotation, velocity, velocity_ang, acceleration,
+                   acceleration_ang)
+
 
 class DroneStateError(DroneControllerError):
     """
