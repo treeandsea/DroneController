@@ -84,6 +84,16 @@ class DroneState:
         """
         return self.state_dict
 
+    def __eq__(self, other):
+        """
+        Checks if the values in the other DroneState are equal.
+        :param other: the other DroneState to compare to
+        :return: boolean for equality
+        """
+        if not isinstance(other, DroneState):
+            return False
+        return self.state_dict == other.state_dict
+
 
 class DroneStateError(DroneControllerError):
     """
