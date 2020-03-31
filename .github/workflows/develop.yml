@@ -1,0 +1,65 @@
+# This is a workflow to generate the documentation automatically.
+
+name: Generate Documentation
+
+# Controls when the action will run. Triggers the workflow on push
+# events but only for the master branch
+on:
+  push:
+    branches:
+      - develop
+      - doc/develop
+
+jobs:
+  gen_doc:
+    runs-on: ubuntu-18.04
+    name: Create Documentation Latest
+    steps:
+      - name: Setup Graphviz environment
+        uses: kamiazya/setup-graphviz@v1
+
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.8'
+          architecture: 'x64'
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r ./requirements.txt
+
+      - name: Sphinx Apidoc
+          run: sphinx-apidoc -o docs/sphinx src
+
+      - name: Build Sphinx
+        run: sphinx-build -b html sphinx docs/sphinx
+
+      - name: Create Dependency Graph
+        run: pydeps -o docs/deps.svg src
+
+      - name: Get build container
+        id: adocbuild
+        uses: avattathil/asciidoctor-action@master
+        with:
+          program: "asciidoctor -r asciidoctor-diagram -D docs --backend=html5 -a toc=left -o index.html docs/index.adoc"
+
+      - name: Print execution time
+        run: echo "Time ${{ steps.adocbuild.outputs.time }}"
+
+      - name: Deploy docs to ghpages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: ./docs/develop
