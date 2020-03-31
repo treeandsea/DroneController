@@ -3,22 +3,26 @@ from unittest import TestCase
 from src.drone_controller.input_layer.drone_state import DroneState
 from src.drone_controller.input_layer.drone_state_mapper import DroneStateMapper
 
+UP_VECTOR = [0.0, 0.0, 1.0]
+
+ZERO_VECTOR = [0.0, 0.0, 0.0]
+
 
 class TestDroneStateMapper(TestCase):
     def test_keyboard_simple_up(self):
-        position = [0.0, 0.0, 1.0]
-        rotation = [0.0, 0.0, 0.0]
-        velocity = [0.0, 0.0, 1.0]
-        velocity_ang = [0.0, 0.0, 0.0]
-        acceleration = [0.0, 0.0, 1.0]
-        acceleration_ang = [0.0, 0.0, 0.0]
+        position = UP_VECTOR
+        rotation = ZERO_VECTOR
+        velocity = UP_VECTOR
+        velocity_ang = ZERO_VECTOR
+        acceleration = UP_VECTOR
+        acceleration_ang = ZERO_VECTOR
 
         expected_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
                                     acceleration_ang)
 
-        position = [0, 0, 0]
-        velocity = [0, 0, 0]
-        acceleration = [0, 0, 0]
+        position = ZERO_VECTOR
+        velocity = ZERO_VECTOR
+        acceleration = ZERO_VECTOR
         drone_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
                                  acceleration_ang)
 
