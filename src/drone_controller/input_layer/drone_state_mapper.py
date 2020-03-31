@@ -10,7 +10,8 @@ class DroneStateMapper:
 
     def keyboard(self, current_state: DroneState, user_input: dict):
         """
-        Maps keyboard input to a drone state.
+        Maps keyboard input to a drone state. The mapper uses fictional units and the time until
+        next expected state is one time unit. So the steps below are basically integrations.
         :param current_state: the current state of the drone
         :param user_input: keyboard input from user
         :return: the expected state of the drone
