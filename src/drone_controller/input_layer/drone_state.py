@@ -77,6 +77,13 @@ class DroneState:
         return cls(position, rotation, velocity, velocity_ang, acceleration,
                    acceleration_ang)
 
+    def __str__(self):
+        """
+        Prints the key-value-pairs.
+        :return: use the dict as return value
+        """
+        return self.state_dict
+
 
 class DroneStateError(DroneControllerError):
     """
