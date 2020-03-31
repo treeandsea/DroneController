@@ -8,7 +8,7 @@ on:
   push:
     branches:
       - develop
-      - doc/develop
+      - doc/Develop
 
 jobs:
   gen_doc:
