@@ -31,4 +31,7 @@ class TestDroneStateMapper(TestCase):
         mapper = DroneStateMapper()
         future_state: DroneState = mapper.keyboard(drone_state, user_input)
 
-        self.assertEqual(future_state, expected_state)
+        self.assertEqual(future_state, expected_state, msg=f'Actual:\n'
+                                                           f'{future_state.__str__()}\n\n'
+                                                           f'Expected:\n'
+                                                           f'{expected_state.__str__()}')
