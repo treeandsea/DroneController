@@ -83,3 +83,40 @@ class TestDroneStateMapper(TestCase):
                                                            f'{future_state.__str__()}\n\n'
                                                            f'Expected:\n'
                                                            f'{expected_state.__str__()}')
+
+    def test_rotation_from_ground(self):
+        """
+        Tests from the standing drone to drone in air with rotation.
+        """
+        position = ZERO_VECTOR
+        rotation = ZERO_VECTOR
+        velocity = ZERO_VECTOR
+        velocity_ang = ZERO_VECTOR
+        acceleration = ZERO_VECTOR
+        acceleration_ang = ZERO_VECTOR
+
+        drone_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
+                                 acceleration_ang)
+
+        position = [0.985, 0, 0.995]
+        rotation = [0, 10, 0]
+        velocity = [0.985, 0, 0.995]
+        velocity_ang = [0.175, 0, 0]  # rad/s
+        acceleration = [0.985, 0, 0.995]
+        acceleration_ang = [0.175, 0, 0]  # rad/s^2
+
+        expected_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
+                                    acceleration_ang)
+
+        user_input = {"Rotation Forward": 0,
+                      'Rotation Right': 1,
+                      "Rotation Backward": 0,
+                      "Rotation Left": 0,
+                      "Acceleration": 1}
+
+        future_state: DroneState = self.mapper.keyboard(drone_state, user_input)
+
+        self.assertEqual(future_state, expected_state, msg=f'Actual:\n'
+                                                           f'{future_state.__str__()}\n\n'
+                                                           f'Expected:\n'
+                                                           f'{expected_state.__str__()}')
