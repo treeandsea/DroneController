@@ -1,5 +1,7 @@
 # pylint: disable=too-many-arguments
 # a wrapper class needs more parameter
+import math
+
 from src.drone_controller.exception.exceptions import DroneControllerError
 
 
@@ -92,7 +94,18 @@ class DroneState:
         """
         if not isinstance(other, DroneState):
             return False
-        return self.state_dict == other.state_dict
+        state_dict = self.state_dict
+        other_state_dict = other.state_dict
+
+        if state_dict.__len__() != other_state_dict.__len__():
+            return False
+
+        for (keys, a, b) in zip(state_dict.keys(), state_dict.values(), other_state_dict.values()):
+            for a_item, b_item in zip(a, b):
+                if math.fabs(a_item - b_item) > 0.001:
+                    print(f'Unequal at {keys} {a_item} != {b_item}')
+                    return False
+        return True
 
 
 class DroneStateError(DroneControllerError):
