@@ -25,10 +25,14 @@ class DroneStateMapper:
         state['Rotation'] = self.add_rotation(state['Rotation'], user_input)
         rotation_normalized = self.normalize_rotation(state['Rotation'])
 
+        state['Angular Acceleration'] = self.angular_acceleration(state, user_input)
+
         state['Acceleration'] = self.acceleration(state['Acceleration'], user_input[
             'Acceleration'], rotation_normalized)
 
         state['Velocity'] = self.add_lists(state['Velocity'], state['Acceleration'])
+        state['Angular Velocity'] = self.add_lists(state['Angular Velocity'],
+                                                   state['Angular Acceleration'])
 
         state['Position'] = self.add_lists(state['Position'], state['Velocity'])
         return DroneState.from_dict(state)
@@ -73,6 +77,18 @@ class DroneStateMapper:
         acceleration.append(math.sqrt(math.pow(magnitude, 2) - math.pow(acceleration[0], 2) -
                                       math.pow(acceleration[1], 2)))
         return acceleration
+
+    def angular_acceleration(self, state, user_input):
+        acceleration = state['Angular Acceleration']
+
+        user_x = user_input['Rotation Right'] - user_input['Rotation Left']
+        user_y = user_input['Rotation Forward'] - user_input['Rotation Backward']
+
+        acc_x = acceleration[0] + user_x * self._angle_per_step
+        acc_y = acceleration[0] + user_y * self._angle_per_step
+
+        acceleration_degree = [acc_x, acc_y, acceleration[2]]
+        return [math.sin(math.radians(x)) for x in acceleration_degree]
 
     def add_rotation(self, rotation, user_input):
         """
