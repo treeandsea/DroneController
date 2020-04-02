@@ -15,10 +15,20 @@ ZERO_VECTOR = [0.0, 0.0, 0.0]
 
 
 class TestDroneStateMapper(TestCase):
+    """
+    Tests the drone state mapper.
+    """
+
     def setUp(self):
+        """
+        Sets up the drone state mapper.
+        """
         self.mapper = DroneStateMapper()
 
     def test_keyboard_simple_up(self):
+        """
+        Tests one time step from drone on ground with everything zero.
+        """
         position = UP_VECTOR
         rotation = ZERO_VECTOR
         velocity = UP_VECTOR
@@ -45,6 +55,9 @@ class TestDroneStateMapper(TestCase):
                                                            f'{expected_state.__str__()}')
 
     def test_keyboard_up_from_position(self):
+        """
+        Tests the drone in the air but everything else zero.
+        """
         position = [2, 3, 4]
         rotation = ZERO_VECTOR
         velocity = ZERO_VECTOR
