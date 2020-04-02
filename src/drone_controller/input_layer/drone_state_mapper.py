@@ -70,6 +70,13 @@ class DroneStateMapper:
         return [sum(x) for x in zip(first_list, second_list)]
 
     def acceleration(self, current_acceleration, user_acceleration, rotation):
+        """
+        Calculates the acceleration for the next state
+        :param current_acceleration: the acceleration of the current state
+        :param user_acceleration: the accelerationn change for the next step
+        :param rotation: the rotation for the next step
+        :return: the acceleration of the next step
+        """
         current = numpy.array(current_acceleration)
         magnitude = numpy.linalg.norm(current) + user_acceleration
         acceleration = [angle * user_acceleration for angle in rotation[0:2]]
@@ -79,6 +86,12 @@ class DroneStateMapper:
         return acceleration
 
     def angular_acceleration(self, state, user_input):
+        """
+        Calculates the angular acceleration of the next step.
+        :param state: the current state of the drone
+        :param user_input: the user input for the next step
+        :return: the angular acceleration for the next step
+        """
         acceleration = state['Angular Acceleration']
 
         user_x = user_input['Rotation Right'] - user_input['Rotation Left']
