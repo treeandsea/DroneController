@@ -100,8 +100,9 @@ class DroneState:
         if state_dict.__len__() != other_state_dict.__len__():
             return False
 
-        for (keys, a, b) in zip(state_dict.keys(), state_dict.values(), other_state_dict.values()):
-            for a_item, b_item in zip(a, b):
+        for (keys, state_values, other_values) in zip(state_dict.keys(), state_dict.values(),
+                                                      other_state_dict.values()):
+            for a_item, b_item in zip(state_values, other_values):
                 if math.fabs(a_item - b_item) > 0.001:
                     print(f'Unequal at {keys} {a_item} != {b_item}')
                     return False
