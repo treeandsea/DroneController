@@ -17,6 +17,7 @@ class DroneStateMapper:
         :return: the expected state of the drone
         """
         state: dict = current_state.state_dict
+        state['Rotation'] = self.add_rotation(state['Rotation'], user_input)
         rotation_normalized = self.normalize_rotation(state['Rotation'])
 
         acceleration = [i * user_input['Acceleration'] for i in rotation_normalized]
@@ -57,3 +58,17 @@ class DroneStateMapper:
         :return:
         """
         return [sum(x) for x in zip(first_list, second_list)]
+
+    @staticmethod
+    def add_rotation(rotation, user_input):
+        """
+        Adds rotation from state and user input together.
+        :param rotation:
+        :param user_input:
+        :return:
+        """
+        rot_x = rotation[0] + user_input['Rotation Right'] - user_input['Rotation Left']
+        rot_y = rotation[1] + user_input['Rotation Forward'] - user_input['Rotation Backward']
+        rot_z = rotation[2]
+
+        return [rot_x, rot_y, rot_z]
