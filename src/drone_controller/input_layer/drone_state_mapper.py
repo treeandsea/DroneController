@@ -1,5 +1,7 @@
 import math
 
+import numpy
+
 from src.drone_controller.input_layer.drone_state import DroneState
 
 
@@ -7,6 +9,9 @@ class DroneStateMapper:
     """
     Maps different inputs to a drone state.
     """
+
+    def __init__(self, angle_per_step=10):
+        self._angle_per_step = angle_per_step
 
     def keyboard(self, current_state: DroneState, user_input: dict):
         """
@@ -20,8 +25,8 @@ class DroneStateMapper:
         state['Rotation'] = self.add_rotation(state['Rotation'], user_input)
         rotation_normalized = self.normalize_rotation(state['Rotation'])
 
-        acceleration = [i * user_input['Acceleration'] for i in rotation_normalized]
-        state['Acceleration'] = self.add_lists(state['Acceleration'], acceleration)
+        state['Acceleration'] = self.acceleration(state['Acceleration'], user_input[
+            'Acceleration'], rotation_normalized)
 
         state['Velocity'] = self.add_lists(state['Velocity'], state['Acceleration'])
 
@@ -42,10 +47,11 @@ class DroneStateMapper:
     def normalize_rotation(rotation) -> list:
         """
         Converts the drone rotation to values in [-1,1]
-        :param rotation: 3D with angle values
+        :param rotation: 3D with angle values in degree
         :return: 3D vector
         """
-        normalized_rotations = list([math.sin(x) for x in rotation[0:2]])
+        radians = list([math.radians(x) for x in rotation])
+        normalized_rotations = list([math.sin(x) for x in radians[0:2]])
         normalized_rotations.append(math.cos(rotation[2]))
         return normalized_rotations
 
@@ -59,16 +65,27 @@ class DroneStateMapper:
         """
         return [sum(x) for x in zip(first_list, second_list)]
 
-    @staticmethod
-    def add_rotation(rotation, user_input):
+    def acceleration(self, current_acceleration, user_acceleration, rotation):
+        current = numpy.array(current_acceleration)
+        magnitude = numpy.linalg.norm(current) + user_acceleration
+        acceleration = [angle * user_acceleration for angle in rotation[0:2]]
+        acceleration = self.add_lists(acceleration, current_acceleration[0:2])
+        acceleration.append(math.sqrt(math.pow(magnitude, 2) - math.pow(acceleration[0], 2) -
+                                      math.pow(acceleration[1], 2)))
+        return acceleration
+
+    def add_rotation(self, rotation, user_input):
         """
         Adds rotation from state and user input together.
-        :param rotation:
+        :param rotation: in degree
         :param user_input:
         :return:
         """
-        rot_x = rotation[0] + user_input['Rotation Right'] - user_input['Rotation Left']
-        rot_y = rotation[1] + user_input['Rotation Forward'] - user_input['Rotation Backward']
+        user_x = user_input['Rotation Right'] - user_input['Rotation Left']
+        user_y = user_input['Rotation Forward'] - user_input['Rotation Backward']
+
+        rot_x = rotation[0] + user_x * self._angle_per_step
+        rot_y = rotation[1] + user_y * self._angle_per_step
         rot_z = rotation[2]
 
         return [rot_x, rot_y, rot_z]
