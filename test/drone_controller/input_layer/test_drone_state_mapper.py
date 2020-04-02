@@ -98,12 +98,12 @@ class TestDroneStateMapper(TestCase):
         drone_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
                                  acceleration_ang)
 
-        position = [0.174, 0, 0.985]
-        rotation = [0, 10, 0]
-        velocity = [0.174, 0, 0.985]
-        velocity_ang = [0.175, 0, 0]  # rad/s
-        acceleration = [0.174, 0, 0.985]
-        acceleration_ang = [0.175, 0, 0]  # rad/s^2
+        position = [0.174, 0.0, 0.985]
+        rotation = [10.0, 0.0, 0.0]
+        velocity = [0.174, 0.0, 0.985]
+        velocity_ang = [0.175, 0.0, 0.0]  # rad/s
+        acceleration = [0.174, 0.0, 0.985]
+        acceleration_ang = [0.175, 0.0, 0.0]  # rad/s^2
 
         expected_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
                                     acceleration_ang)
