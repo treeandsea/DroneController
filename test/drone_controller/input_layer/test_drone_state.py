@@ -18,6 +18,7 @@ def test_create_three_dimensional_position():
 
     expected_dict = {
         "Position": position,
+        "Rotation": rotation,
         "Velocity": velocity,
         "Angular Velocity": velocity_ang,
         "Acceleration": acceleration,
