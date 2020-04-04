@@ -41,4 +41,5 @@ class QuadroCopterTest(TestCase):
 
         thrusts = self.calculator.calc(current_state, future_state)
 
-        self.assertEqual(expected_thrusts, thrusts)
+        for expected_thrust, thrust in zip(expected_thrusts, thrusts):
+            self.assertAlmostEqual(expected_thrust, thrust, delta=0.001)
