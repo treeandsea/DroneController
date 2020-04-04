@@ -8,13 +8,18 @@ UP_VECTOR = [0, 0, 1]
 
 
 class QuadroCopterTest(TestCase):
+    """
+    Tests the thrust calculator for quadro copters.
+    """
+
     def setUp(self):
         """
         Sets up the calculator with a drone mass and the max thrust per rotor.
         """
         mass = 2.0  # kg
         rotor_thrust = 20.0  # Newton
-        self.calculator = ThrustCalculatorQuadroCopter(mass, rotor_thrust)
+        radius = 1  # m
+        self.calculator = ThrustCalculatorQuadroCopter(mass, rotor_thrust, radius)
 
     def test_calc_simple_up(self):
         """
@@ -45,6 +50,9 @@ class QuadroCopterTest(TestCase):
             self.assertAlmostEqual(expected_thrust, thrust, delta=0.001)
 
     def test_up_with_rotation(self):
+        """
+        Tests if the correct rotors uses more power than the opposite site.
+        """
         position = ZERO_VECTOR
         rotation = ZERO_VECTOR
         velocity = ZERO_VECTOR
@@ -63,12 +71,8 @@ class QuadroCopterTest(TestCase):
         future_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
                                   acceleration_ang)
 
-        expected_thrusts = [0, 0, 0, 0]
-
         thrusts = self.calculator.calc(current_state, future_state)
 
-        self.assertGreater(thrusts[3], thrusts[1])
-        self.assertAlmostEquals(thrusts[0], thrusts[2])
-
-        for expected_thrust, thrust in zip(expected_thrusts, thrusts):
-            self.assertAlmostEqual(expected_thrust, thrust, delta=0.001)
+        print(thrusts)
+        self.assertGreater(thrusts[1], thrusts[3])
+        self.assertAlmostEqual(thrusts[0], thrusts[2])
