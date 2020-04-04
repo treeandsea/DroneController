@@ -70,13 +70,3 @@ class ThrustCalculatorQuadroCopter(ThrustCalculator):
         :return: one list
         """
         return [x - y for x, y in zip(first_list, second_list)]
-
-    @staticmethod
-    def add_lists(first, second):
-        """
-        Adds two lists
-        :param first:
-        :param second:
-        :return: one list
-        """
-        return [sum(x) for x in zip(first, second)]
