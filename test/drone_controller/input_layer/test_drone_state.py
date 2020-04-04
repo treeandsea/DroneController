@@ -56,6 +56,7 @@ def test_three_dim_vel_validation():
         position = [1, 1, 1]
         rotation = [1, 1, 1]
         velocity = [1, 1]
+        rotation = [1, 1, 1]
         velocity_ang = [1, 1, 1]
         acceleration = [1, 1, 1]
         acceleration_ang = [1, 1, 1]
