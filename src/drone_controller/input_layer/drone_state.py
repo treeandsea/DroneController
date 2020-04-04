@@ -46,6 +46,20 @@ class DroneState:
         self._velocity_ang = velocity_ang
         self._acceleration = acceleration
         self._acceleration_ang = acceleration_ang
+        self._float_precision = 0.001
+
+    @property
+    def float_precision(self):
+        """
+        :return: The precision of floats while comparing two drone states.
+        """
+        return self._float_precision
+
+    @float_precision.setter
+    def float_precision(self, value):
+        if not isinstance(value, float):
+            raise TypeError(f'float_precision must be a float, but was {type(value)}.')
+        self._float_precision = value
 
     @property
     def state_dict(self):
@@ -103,7 +117,7 @@ class DroneState:
         for (keys, state_values, other_values) in zip(state_dict.keys(), state_dict.values(),
                                                       other_state_dict.values()):
             for a_item, b_item in zip(state_values, other_values):
-                if math.fabs(a_item - b_item) > 0.001:
+                if math.fabs(a_item - b_item) > self._float_precision:
                     print(f'Unequal at {keys} {a_item} != {b_item}')
                     return False
         return True
