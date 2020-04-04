@@ -29,7 +29,7 @@ class DroneMetricTest(TestCase):
         Test if the dictionary is correctly built.
         """
 
-        self.assertEqual(self.metrics.metric_dict, self.metrics_dict)
+        self.assertEqual(self.metrics.__dict__(), self.metrics_dict)
 
     def test_metrics_from_dict(self):
         """
