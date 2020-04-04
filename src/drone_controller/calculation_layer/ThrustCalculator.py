@@ -14,18 +14,17 @@ class ThrustCalculator(metaclass=abc.ABCMeta):
 
 
 class ThrustCalculatorQuadroCopter(ThrustCalculator):
-    def __init__(self, weight: float, rotor_thrust: float):
-        self.weight = weight
+    def __init__(self, mass: float, rotor_thrust: float):
+        self.mass = mass
         self.rotor_thrust = rotor_thrust
 
     def calc(self, current_state: DroneState, future_state: DroneState) -> list:
         jerk = self.subtract_lists(future_state.state_dict['Acceleration'],
-                                   current_state.state_dict[
-                                       'Acceleration'])
+                                   current_state.state_dict['Acceleration'])
 
         needed_acceleration = jerk[0:2]
         needed_acceleration.append(jerk[2] + GRAVITATIONAL_ACCELERATION)
-        force = [x * self.weight for x in needed_acceleration]
+        force = [x * self.mass for x in needed_acceleration]
 
         return [(numpy.linalg.norm(force) / 4) / self.rotor_thrust] * 4
 
