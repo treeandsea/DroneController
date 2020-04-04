@@ -4,6 +4,10 @@ from src.drone_controller.input_layer.drone_metrics import DroneMetrics
 
 
 class DroneMetricTest(TestCase):
+    """
+    Tests the wrapper class DroneMetrics.
+    """
+
     def setUp(self) -> None:
         """
         Sets up some drone metrics.
