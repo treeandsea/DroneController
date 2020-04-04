@@ -40,3 +40,14 @@ class DroneMetricTest(TestCase):
         Tests if drone metrics is correctly built from dict.
         """
         self.assertEqual(self.metrics, DroneMetrics(**self.metrics_dict))
+
+    def test_not_equal(self):
+        """
+        Tests the eq method for inequality.
+        """
+        metrics_dict = self.metrics_dict
+        metrics_dict['mass'] = 5
+
+        other_metrics = DroneMetrics(**metrics_dict)
+
+        self.assertNotEqual(self.metrics, other_metrics)
