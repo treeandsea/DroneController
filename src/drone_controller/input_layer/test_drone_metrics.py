@@ -51,3 +51,10 @@ class DroneMetricTest(TestCase):
         other_metrics = DroneMetrics(**metrics_dict)
 
         self.assertNotEqual(self.metrics, other_metrics)
+
+    def test_wrong_type(self):
+        """
+        Tests if type checking works.
+        """
+        with self.assertRaises(TypeError):
+            self.metrics.__eq__(10)
