@@ -8,15 +8,17 @@ def test_create_three_dimensional_position():
     Test dict generation for a three dimensional position.
     """
     position = [1, 1, 1]
+    rotation = [1, 1, 1]
     velocity = [1, 1, 1]
     velocity_ang = [1, 1, 1]
     acceleration = [1, 1, 1]
     acceleration_ang = [1, 1, 1]
-    drone_state = DroneState(position, velocity, velocity_ang, acceleration,
+    drone_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
                              acceleration_ang)
 
     expected_dict = {
         "Position": position,
+        "Rotation": rotation,
         "Velocity": velocity,
         "Angular Velocity": velocity_ang,
         "Acceleration": acceleration,
@@ -34,11 +36,12 @@ def test_three_dim_pos_validation():
     """
     with raises(DroneStateError):
         position = [1, 1]
+        rotation = [1, 1, 1]
         velocity = [1, 1, 1]
         velocity_ang = [1, 1, 1]
         acceleration = [1, 1, 1]
         acceleration_ang = [1, 1, 1]
-        drone_state = DroneState(position, velocity, velocity_ang, acceleration,
+        drone_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
                                  acceleration_ang)
 
         # pylint: disable=unused-variable
@@ -52,10 +55,11 @@ def test_three_dim_vel_validation():
     with raises(DroneStateError):
         position = [1, 1, 1]
         velocity = [1, 1]
+        rotation = [1, 1, 1]
         velocity_ang = [1, 1, 1]
         acceleration = [1, 1, 1]
         acceleration_ang = [1, 1, 1]
-        drone_state = DroneState(position, velocity, velocity_ang, acceleration,
+        drone_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
                                  acceleration_ang)
 
         # pylint: disable=unused-variable
