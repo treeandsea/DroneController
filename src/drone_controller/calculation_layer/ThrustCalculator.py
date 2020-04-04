@@ -17,16 +17,28 @@ class ThrustCalculatorQuadroCopter(ThrustCalculator):
     def __init__(self, mass: float, rotor_thrust: float):
         self.mass = mass
         self.rotor_thrust = rotor_thrust
+        self.radius = radius
 
     def calc(self, current_state: DroneState, future_state: DroneState) -> list:
         jerk = self.subtract_lists(future_state.state_dict['Acceleration'],
                                    current_state.state_dict['Acceleration'])
 
+        jerk_ang = self.subtract_lists(future_state.state_dict['Angular Acceleration'],
+                                       current_state.state_dict['Angular Acceleration'])
+
         needed_acceleration = jerk[0:2]
         needed_acceleration.append(jerk[2] + GRAVITATIONAL_ACCELERATION)
         force = [x * self.mass for x in needed_acceleration]
 
-        return [(numpy.linalg.norm(force) / 4) / self.rotor_thrust] * 4
+        thrust_per_rotor = [(numpy.linalg.norm(force) / 4) / self.rotor_thrust] * 4
+
+        # Add torque
+        thrust_per_rotor[0] = thrust_per_rotor[0] + jerk_ang[1] * self.mass * self.radius / 2
+        thrust_per_rotor[1] = thrust_per_rotor[1] + jerk_ang[0] * self.mass * self.radius / 2
+        thrust_per_rotor[2] = thrust_per_rotor[2] - jerk_ang[1] * self.mass * self.radius / 2
+        thrust_per_rotor[3] = thrust_per_rotor[3] - jerk_ang[0] * self.mass * self.radius / 2
+
+        return thrust_per_rotor
 
     @staticmethod
     def subtract_lists(first_list, second_list):
