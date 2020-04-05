@@ -1,16 +1,16 @@
 from unittest import TestCase
 
-from src.drone_controller.input_layer.drone_metrics import DroneMetrics
+from src.drone_controller.input_layer.drone_physics import DronePhysics
 
 
-class DroneMetricTest(TestCase):
+class DronePhysicsTest(TestCase):
     """
-    Tests the wrapper class DroneMetrics.
+    Tests the wrapper class DronePhysics.
     """
 
     def setUp(self) -> None:
         """
-        Sets up some drone metrics.
+        Sets up some drone physics.
         """
 
         self.mass = 2.56
@@ -18,43 +18,43 @@ class DroneMetricTest(TestCase):
         self.rotor_count = 8
         self.thrust_per_rotor = 43.2
 
-        self.metrics_dict = {'mass': self.mass,
+        self.physics_dict = {'mass': self.mass,
                              'thrust_per_rotor': self.thrust_per_rotor,
                              'rotor_count': self.rotor_count,
                              'radius': self.radius}
 
-        self.metrics = DroneMetrics(mass=self.mass,
+        self.physics = DronePhysics(mass=self.mass,
                                     thrust_per_rotor=self.thrust_per_rotor,
                                     rotor_count=self.rotor_count,
                                     radius=self.radius)
 
-    def test_metric_dict(self):
+    def test_physics_dict(self):
         """
         Test if the dictionary is correctly built.
         """
 
-        self.assertEqual(self.metrics.metrics_dict(), self.metrics_dict)
+        self.assertEqual(self.physics.physics_dict(), self.physics_dict)
 
-    def test_metrics_from_dict(self):
+    def test_physics_from_dict(self):
         """
-        Tests if drone metrics is correctly built from dict.
+        Tests if drone physics is correctly built from dict.
         """
-        self.assertEqual(self.metrics, DroneMetrics(**self.metrics_dict))
+        self.assertEqual(self.physics, DronePhysics(**self.physics_dict))
 
     def test_not_equal(self):
         """
         Tests the eq method for inequality.
         """
-        metrics_dict = self.metrics_dict
-        metrics_dict['mass'] = 5
+        physics_dict = self.physics_dict
+        physics_dict['mass'] = 5
 
-        other_metrics = DroneMetrics(**metrics_dict)
+        other_physics = DronePhysics(**physics_dict)
 
-        self.assertNotEqual(self.metrics, other_metrics)
+        self.assertNotEqual(self.physics, other_physics)
 
     def test_wrong_type(self):
         """
         Tests if type checking works.
         """
         with self.assertRaises(TypeError):
-            self.metrics.__eq__(10)
+            self.physics.__eq__(10)
