@@ -7,14 +7,6 @@ from src.drone_controller.input_layer.drone_state import DroneState
 from src.drone_controller.input_layer.request_handler import RequestHandler
 
 
-def test_keyboard_input():
-    """
-    Test if a thrust dictionary for a quadrocopter is returned.
-    """
-    drone_state = DroneState([0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0],
-                             [0, 0, 0])
-
-
 class RequestHandlerTest(TestCase):
     """
     Test the RequestHandler
