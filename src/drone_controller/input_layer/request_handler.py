@@ -16,6 +16,15 @@ class RequestHandler:
     """
 
     def __init__(self, aircraft_type: str, mass: float, max_rotor_thrust: float, radius: float):
+        """
+        Initializes the request handler. This should always be the entry point.
+        :param aircraft_type: Name of the vehicle type the thrust should be calculated for.
+        :param mass: the mass of the vehicle
+        :param max_rotor_thrust: The maximal thrust one rotor can produce. This will assume
+        every rotor is the same.
+        :param radius: the horizontal distance from the center of mass of each rotor. It will
+        also assume it the same for every rotor.
+        """
         if aircraft_type == 'Quadrocopter':
             self._thrust_calc = ThrustCalculatorQuadroCopter(mass, max_rotor_thrust, radius)
         else:
