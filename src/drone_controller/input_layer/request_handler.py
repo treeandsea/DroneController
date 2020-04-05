@@ -37,7 +37,7 @@ class RequestHandler:
             raise UserInputError(user_input, "The keyboard input is complete.")
 
         state_mapper = DroneStateMapper()
-        expected_state = state_mapper.keyboard(user_input)
+        expected_state = state_mapper.keyboard(drone_state, user_input)
         return self._calc(drone_state, expected_state)
 
     def _calc(self, drone_state, expected_state):
