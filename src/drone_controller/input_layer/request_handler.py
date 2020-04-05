@@ -3,6 +3,7 @@ This module handles all requests. This will cover REST calls as well as native p
 """
 from src.drone_controller.calculation_layer.thrust_calculator import ThrustCalculatorQuadroCopter
 from src.drone_controller.exception.exceptions import UserInputError
+from src.drone_controller.input_layer.drone_physics import DronePhysics
 from src.drone_controller.input_layer.drone_state import DroneState
 from src.drone_controller.input_layer.drone_state_mapper import DroneStateMapper
 
@@ -31,6 +32,20 @@ class RequestHandler:
             raise NotImplementedError(f'This type {1} is not implemented yet',
                                       aircraft_type)
 
+    @classmethod
+    def from_drone_physics(cls, aircraft_type: str, drone_physics: DronePhysics):
+        """
+        Creates a request handler from drone physics.
+        :param aircraft_type: Name of the vehicle type the thrust should be calculated for.
+        :param drone_physics: wrapper of the physics of the drone
+        :return: a request handler
+        """
+        physics_dict = drone_physics.physics_dict()
+        return cls(aircraft_type,
+                   physics_dict['mass'],
+                   physics_dict['thrust_per_rotor'],
+                   physics_dict['radius'])
+
     def keyboard_input(self, drone_state: DroneState, user_input: dict) -> list:
         """
         Handles user input and will call the thrust calculator.
@@ -55,3 +70,9 @@ class RequestHandler:
         :return: thrusts for four rotor
         """
         return self._thrust_calc.calc(drone_state, expected_state)
+
+    def __eq__(self, other):
+        if not isinstance(other, RequestHandler):
+            return False
+
+        return other._thrust_calc.__dict__ == self._thrust_calc.__dict__
