@@ -39,16 +39,6 @@ class DroneStateMapper:
         return DroneState.from_dict(state)
 
     @staticmethod
-    def multiply_lists(first_list, second_list):
-        """
-        Multiplies two lists element wise
-        :param first_list:
-        :param second_list:
-        :return:
-        """
-        return [a * b for a, b in zip(first_list, second_list)]
-
-    @staticmethod
     def normalize_rotation(rotation) -> list:
         """
         Converts the drone rotation to values in [-1,1]
