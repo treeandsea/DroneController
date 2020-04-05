@@ -1,0 +1,3 @@
+[pydeps]
+max_bacon = 0
+cluster = True
