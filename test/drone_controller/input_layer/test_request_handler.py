@@ -13,7 +13,10 @@ class RequestHandlerTest(TestCase):
     """
 
     def setUp(self) -> None:
-        self.handler = RequestHandler("Quadrocopter")
+        mass = 2
+        max_rotor_thrust = 20
+        radius = 1
+        self.handler = RequestHandler("Quadrocopter", mass, max_rotor_thrust, radius)
 
     @skip("Not enough dependencies implemented.")
     def test_keyboard_input(self):
@@ -27,6 +30,7 @@ class RequestHandlerTest(TestCase):
         Test if exception is thrown upon wrong user input.
         """
         with raises(UserInputError):
-            drone_state = DroneState([0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0])
+            drone_state = DroneState([0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0],
+                                     [0, 0, 0])
             user_input = {'velocity': [1, 1, 1]}
             self.handler.keyboard_input(drone_state, user_input)

@@ -15,19 +15,19 @@ class RequestHandler:
     Handles request from python code.
     """
 
-    def __init__(self, aircraft_type):
+    def __init__(self, aircraft_type: str, mass: float, max_rotor_thrust: float, radius: float):
         if aircraft_type == 'Quadrocopter':
-            self._thrust_calc = ThrustCalculatorQuadroCopter()
+            self._thrust_calc = ThrustCalculatorQuadroCopter(mass, max_rotor_thrust, radius)
         else:
             raise NotImplementedError(f'This type {1} is not implemented yet',
                                       aircraft_type)
 
-    def keyboard_input(self, drone_state: DroneState, user_input: dict) -> dict:
+    def keyboard_input(self, drone_state: DroneState, user_input: dict) -> list:
         """
         Handles user input and will call the thrust calculator.
         :param drone_state: the momentary state of the drone
         :param user_input: keyboard input of the user
-        :return: thrust dictionary
+        :return: thrust list beginning from front and than clockwise
         """
         if not all(key in user_input for key in ["Rotation Forward",
                                                  "Rotation Right",
