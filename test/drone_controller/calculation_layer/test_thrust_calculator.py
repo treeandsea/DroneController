@@ -41,7 +41,7 @@ class QuadroCopterTest(TestCase):
                                   acceleration_ang)
 
         needed_thrust = 21.61  # Newton
-        relative_thrust_per_rotor = (needed_thrust / 4) / self.calculator.rotor_thrust
+        relative_thrust_per_rotor = (needed_thrust / 4) / self.calculator.max_rotor_thrust
         expected_thrusts = [relative_thrust_per_rotor] * 4
 
         thrusts = self.calculator.calc(current_state, future_state)

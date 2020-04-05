@@ -29,10 +29,10 @@ class ThrustCalculatorQuadroCopter(ThrustCalculator):
     Calculates thrusts for a quadro copter.
     """
 
-    def __init__(self, mass: float, rotor_thrust: float, radius: float,
+    def __init__(self, mass: float, max_rotor_thrust: float, radius: float,
                  inertia_flattening: float = 1):
         self.mass = mass
-        self.rotor_thrust = rotor_thrust
+        self.max_rotor_thrust = max_rotor_thrust
         self.radius = radius
         self.inertia_flattening = inertia_flattening
 
@@ -53,7 +53,7 @@ class ThrustCalculatorQuadroCopter(ThrustCalculator):
         needed_acceleration.append(jerk[2] + GRAVITATIONAL_ACCELERATION)
         force = [x * self.mass for x in needed_acceleration]
 
-        thrust_per_rotor = [(numpy.linalg.norm(force) / 4) / self.rotor_thrust] * 4
+        thrust_per_rotor = [(numpy.linalg.norm(force) / 4) / self.max_rotor_thrust] * 4
 
         # Add torque
         inertia_torque = self.mass * self.radius / (2 * self.inertia_flattening)
