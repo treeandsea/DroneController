@@ -29,10 +29,12 @@ class ThrustCalculatorQuadroCopter(ThrustCalculator):
     Calculates thrusts for a quadro copter.
     """
 
-    def __init__(self, mass: float, rotor_thrust: float, radius: float):
+    def __init__(self, mass: float, rotor_thrust: float, radius: float,
+                 inertia_flattening: float = 1):
         self.mass = mass
         self.rotor_thrust = rotor_thrust
         self.radius = radius
+        self.inertia_flattening = inertia_flattening
 
     def calc(self, current_state: DroneState, future_state: DroneState) -> list:
         """
@@ -54,10 +56,12 @@ class ThrustCalculatorQuadroCopter(ThrustCalculator):
         thrust_per_rotor = [(numpy.linalg.norm(force) / 4) / self.rotor_thrust] * 4
 
         # Add torque
-        thrust_per_rotor[0] = thrust_per_rotor[0] + jerk_ang[1] * self.mass * self.radius / 2
-        thrust_per_rotor[1] = thrust_per_rotor[1] + jerk_ang[0] * self.mass * self.radius / 2
-        thrust_per_rotor[2] = thrust_per_rotor[2] - jerk_ang[1] * self.mass * self.radius / 2
-        thrust_per_rotor[3] = thrust_per_rotor[3] - jerk_ang[0] * self.mass * self.radius / 2
+        inertia_torque = self.mass * self.radius / (2 * self.inertia_flattening)
+
+        thrust_per_rotor[0] = thrust_per_rotor[0] + jerk_ang[1] * inertia_torque
+        thrust_per_rotor[1] = thrust_per_rotor[1] + jerk_ang[0] * inertia_torque
+        thrust_per_rotor[2] = thrust_per_rotor[2] - jerk_ang[1] * inertia_torque
+        thrust_per_rotor[3] = thrust_per_rotor[3] - jerk_ang[0] * inertia_torque
 
         return thrust_per_rotor
 
