@@ -54,6 +54,7 @@ def test_three_dim_vel_validation():
     """
     with raises(DroneStateError):
         position = [1, 1, 1]
+        rotation = [1, 1, 1]
         velocity = [1, 1]
         rotation = [1, 1, 1]
         velocity_ang = [1, 1, 1]
