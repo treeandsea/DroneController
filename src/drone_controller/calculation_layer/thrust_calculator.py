@@ -38,7 +38,9 @@ class ThrustCalculatorQuadroCopter(ThrustCalculator):
 
     def calc(self, current_state: DroneState, future_state: DroneState) -> list:
         """
-        The actual calculation.
+        The actual calculation. This uses fictional units and assume the the future step is one time
+        step away. So therefore the calculation below are integrations and acceleration
+        subtraction is jerk.
         :param current_state: the state of drone now
         :param future_state: the desired state of the drone
         :return: four relative thrusts values (for DC rotors)
