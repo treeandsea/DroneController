@@ -76,6 +76,28 @@ Maps the input from `RequestHandler` to expected `DroneState` for the `calculati
 ****
 
 ****
+DronePhysics::
+This is a wrapper class, that contains the physical properties of the drone.
+
+|===
+|Key |Value
+
+|mass
+|float of the mass of the drone in kg
+
+|thrust_per_rotor
+|float the maximal thrust one rotor of the drone can produce in Newton
+
+|rotor_count
+|the drone's rotor amount
+
+|radius
+|the horizontal distance of each rotor to the center of mass
+
+|===
+****
+
+****
 DroneState::
 A wrapper for a dictionary containing the target state of the drone.
 
