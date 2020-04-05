@@ -85,6 +85,9 @@ A wrapper for a dictionary containing the target state of the drone.
 |position
 |three dimensional vector of floats
 
+|rotation
+|three dimensional vector of floats
+
 |translation velocity
 |three dimensional vector of floats
 
