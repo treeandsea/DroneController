@@ -1,10 +1,18 @@
-from unittest import TestCase, skip
+from unittest import TestCase
 
 from pytest import raises
 
 from src.drone_controller.exception.exceptions import UserInputError
 from src.drone_controller.input_layer.drone_state import DroneState
 from src.drone_controller.input_layer.request_handler import RequestHandler
+
+
+def test_keyboard_input():
+    """
+    Test if a thrust dictionary for a quadrocopter is returned.
+    """
+    drone_state = DroneState([0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0],
+                             [0, 0, 0])
 
 
 class RequestHandlerTest(TestCase):
@@ -18,12 +26,20 @@ class RequestHandlerTest(TestCase):
         radius = 1
         self.handler = RequestHandler("Quadrocopter", mass, max_rotor_thrust, radius)
 
-    @skip("Not enough dependencies implemented.")
-    def test_keyboard_input(self):
-        """
-        Test if a thrust dictionary for a quadrocopter is returned.
-        """
-        raise NotImplementedError("Too much stuff is missing right now.")
+        drone_state = DroneState([0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0],
+                                 [0, 0, 0])
+
+        user_input = {'Rotation Forward': 0,
+                      'Rotation Right': 0,
+                      'Rotation Backward': 0,
+                      'Rotation Left': 0,
+                      'Acceleration': 1}
+
+        expected_thrusts = [10.81 * mass / 4 / max_rotor_thrust] * 4
+
+        thrusts: list = self.handler.keyboard_input(drone_state, user_input)
+
+        self.assertEqual(expected_thrusts, thrusts)
 
     def test_keyboard_input_exception(self):
         """
