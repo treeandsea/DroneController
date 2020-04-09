@@ -73,6 +73,10 @@ The input can actually be a `DroneState` already.
 ****
 DroneStateMapper::
 Maps the input from `RequestHandler` to expected `DroneState` for the `calculation layer`.
+Is has currently one method called `keyboard` that calculates an future `DroneState` from keyboard input.
+It expects the current `DroneState` and a dictionary of the user input (s.
+`RequestHandler` above).
+
 ****
 
 ****
@@ -124,8 +128,6 @@ A wrapper for a dictionary containing the target state of the drone.
 
 |===
 
-These can be optional.
-
 ****
 
 ===== Calculation Layer
@@ -134,6 +136,22 @@ These can be optional.
 ThrustCalculator::
 This expects the momentary `DroneState` and the expected `DroneState`.
 It will try to calculate the rotors thrusts to minimize the differences.
+
+There are multiple thrust calculators for different aircrafts.
+Currently implemented are:
+
+|===
+|Name |Parameter
+
+|ThrustCalculatorQuadroCopter
+| - mass
+
+- max. thrust per rotor
+
+- radius to the center of mass
+
+- scalar factor of the inertia torque (optional)
+|===
 ****
 
 ===== Output Layer
