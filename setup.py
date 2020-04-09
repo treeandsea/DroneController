@@ -10,6 +10,7 @@ setup(
     name='DroneController',
     version='1.0.0',
     packages=['src', 'src.drone_controller', 'test'],
+    keywords='drone flying controller aviation',
     url='https://www.github.com/treeandsea/DroneController',
     download_url='https://github.com/treeandsea/DroneController/releases',
     license='GPL-3.0',
