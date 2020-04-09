@@ -4,6 +4,7 @@ import abc
 import numpy
 
 from src.drone_controller.input_layer.drone_state import DroneState
+from src.drone_controller.util.list_operators import subtract_lists
 
 GRAVITATIONAL_ACCELERATION = 9.81
 
@@ -45,11 +46,11 @@ class ThrustCalculatorQuadroCopter(ThrustCalculator):
         :param future_state: the desired state of the drone
         :return: four relative thrusts values (for DC rotors)
         """
-        jerk = self.subtract_lists(future_state.state_dict['Acceleration'],
-                                   current_state.state_dict['Acceleration'])
+        jerk = subtract_lists(future_state.state_dict['Acceleration'],
+                              current_state.state_dict['Acceleration'])
 
-        jerk_ang = self.subtract_lists(future_state.state_dict['Angular Acceleration'],
-                                       current_state.state_dict['Angular Acceleration'])
+        jerk_ang = subtract_lists(future_state.state_dict['Angular Acceleration'],
+                                  current_state.state_dict['Angular Acceleration'])
 
         needed_acceleration = jerk[0:2]
         needed_acceleration.append(jerk[2] + GRAVITATIONAL_ACCELERATION)
@@ -66,13 +67,3 @@ class ThrustCalculatorQuadroCopter(ThrustCalculator):
         thrust_per_rotor[3] = thrust_per_rotor[3] - jerk_ang[0] * inertia_torque
 
         return thrust_per_rotor
-
-    @staticmethod
-    def subtract_lists(first_list, second_list):
-        """
-        Subtracts two lists
-        :param first_list:
-        :param second_list:
-        :return: one list
-        """
-        return [x - y for x, y in zip(first_list, second_list)]
