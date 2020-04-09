@@ -16,6 +16,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        
+      - uses: actions/cache@v1.1.2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v1.2.0
@@ -30,6 +37,19 @@ jobs:
       - name: Python Pylint Github Action
         run: |
           pylint --rcfile=.pylintrc -j 2 src test
+
+      - name: Radon CC & MI
+        id: cc
+        run: |
+          mkdir radon
+          radon cc ./src -s -j > radon/cc.json
+          radon mi ./src -j > radon/mi.json
+
+      - name: Upload Radon
+        uses: actions/upload-artifact@v1
+        with:
+          name: radon
+          path: radon
 
       - name: Python Pytest with Coverage
         run: |
