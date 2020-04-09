@@ -12,5 +12,6 @@ setup(
     author='Segelzwerg, TreeKid',
     author_email='marcel.haas@hhu.de',
     description='A python module that calculates thrusts for various aircrafts from all sorts of '
-                'inputs. '
+                'inputs. ',
+    python_requires='>=3.6'
 )
