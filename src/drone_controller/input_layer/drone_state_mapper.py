@@ -3,6 +3,7 @@ import math
 import numpy
 
 from src.drone_controller.input_layer.drone_state import DroneState
+from src.drone_controller.util.list_operators import add_lists
 
 
 class DroneStateMapper:
@@ -30,22 +31,12 @@ class DroneStateMapper:
         state['Acceleration'] = self.acceleration(state['Acceleration'], user_input[
             'Acceleration'], rotation_normalized)
 
-        state['Velocity'] = self.add_lists(state['Velocity'], state['Acceleration'])
-        state['Angular Velocity'] = self.add_lists(state['Angular Velocity'],
-                                                   state['Angular Acceleration'])
+        state['Velocity'] = add_lists(state['Velocity'], state['Acceleration'])
+        state['Angular Velocity'] = add_lists(state['Angular Velocity'],
+                                              state['Angular Acceleration'])
 
-        state['Position'] = self.add_lists(state['Position'], state['Velocity'])
+        state['Position'] = add_lists(state['Position'], state['Velocity'])
         return DroneState.from_dict(state)
-
-    @staticmethod
-    def multiply_lists(first_list, second_list):
-        """
-        Multiplies two lists element wise
-        :param first_list:
-        :param second_list:
-        :return:
-        """
-        return [a * b for a, b in zip(first_list, second_list)]
 
     @staticmethod
     def normalize_rotation(rotation) -> list:
@@ -60,16 +51,7 @@ class DroneStateMapper:
         return normalized_rotations
 
     @staticmethod
-    def add_lists(first_list, second_list):
-        """
-        Adds two lists element wise
-        :param first_list:
-        :param second_list:
-        :return:
-        """
-        return [sum(x) for x in zip(first_list, second_list)]
-
-    def acceleration(self, current_acceleration, user_acceleration, rotation):
+    def acceleration(current_acceleration, user_acceleration, rotation):
         """
         Calculates the acceleration for the next state
         :param current_acceleration: the acceleration of the current state
@@ -80,7 +62,7 @@ class DroneStateMapper:
         current = numpy.array(current_acceleration)
         magnitude = numpy.linalg.norm(current) + user_acceleration
         acceleration = [angle * user_acceleration for angle in reversed(rotation[0:2])]
-        acceleration = self.add_lists(acceleration, current_acceleration[0:2])
+        acceleration = add_lists(acceleration, current_acceleration[0:2])
         acceleration.append(math.sqrt(math.pow(magnitude, 2) - math.pow(acceleration[0], 2) -
                                       math.pow(acceleration[1], 2)))
         return acceleration
