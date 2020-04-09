@@ -634,10 +634,55 @@ This could be useful if this services runs on a different machine than the reque
 <dl>
 <dt class="hdlist1">DroneStateMapper</dt>
 <dd>
-<p>Maps the input from <code>RequestHandler</code> to expected <code>DroneState</code> for the <code>calculation layer</code>.</p>
+<p>Maps the input from <code>RequestHandler</code> to expected <code>DroneState</code> for the <code>calculation layer</code>.
+Is has currently one method called <code>keyboard</code> that calculates an future <code>DroneState</code> from keyboard input.
+It expects the current <code>DroneState</code> and a dictionary of the user input (s.
+<code>RequestHandler</code> above).</p>
 </dd>
 </dl>
 </div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">DronePhysics</dt>
+<dd>
+<p>This is a wrapper class, that contains the physical properties of the drone.</p>
+</dd>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Key</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mass</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float of the mass of the drone in kg</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">thrust_per_rotor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float the maximal thrust one rotor of the drone can produce in Newton</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rotor_count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the drone&#8217;s rotor amount</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">radius</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the horizontal distance of each rotor to the center of mass</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sidebarblock">
@@ -667,6 +712,10 @@ This could be useful if this services runs on a different machine than the reque
 <td class="tableblock halign-left valign-top"><p class="tableblock">three dimensional vector of floats</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rotation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">three dimensional vector of floats</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">translation velocity</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">three dimensional vector of floats</p></td>
 </tr>
@@ -684,9 +733,6 @@ This could be useful if this services runs on a different machine than the reque
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>These can be optional.</p>
-</div>
 </div>
 </div>
 </div>
@@ -703,6 +749,31 @@ It will try to calculate the rotors thrusts to minimize the differences.</p>
 </dd>
 </dl>
 </div>
+<div class="paragraph">
+<p>There are multiple thrust calculators for different aircrafts.
+Currently implemented are:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Parameter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ThrustCalculatorQuadroCopter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- mass</p>
+<p class="tableblock">- max. thrust per rotor</p>
+<p class="tableblock">- radius to the center of mass</p>
+<p class="tableblock">- scalar factor of the inertia torque (optional)</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -750,7 +821,7 @@ It will try to calculate the rotors thrusts to minimize the differences.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-05 16:13:25 UTC
+Last updated 2020-04-09 09:34:06 UTC
 </div>
 </div>
 </body>

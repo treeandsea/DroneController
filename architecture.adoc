@@ -73,6 +73,32 @@ The input can actually be a `DroneState` already.
 ****
 DroneStateMapper::
 Maps the input from `RequestHandler` to expected `DroneState` for the `calculation layer`.
+Is has currently one method called `keyboard` that calculates an future `DroneState` from keyboard input.
+It expects the current `DroneState` and a dictionary of the user input (s.
+`RequestHandler` above).
+
+****
+
+****
+DronePhysics::
+This is a wrapper class, that contains the physical properties of the drone.
+
+|===
+|Key |Value
+
+|mass
+|float of the mass of the drone in kg
+
+|thrust_per_rotor
+|float the maximal thrust one rotor of the drone can produce in Newton
+
+|rotor_count
+|the drone's rotor amount
+
+|radius
+|the horizontal distance of each rotor to the center of mass
+
+|===
 ****
 
 ****
@@ -83,6 +109,9 @@ A wrapper for a dictionary containing the target state of the drone.
 |Key |Value
 
 |position
+|three dimensional vector of floats
+
+|rotation
 |three dimensional vector of floats
 
 |translation velocity
@@ -99,8 +128,6 @@ A wrapper for a dictionary containing the target state of the drone.
 
 |===
 
-These can be optional.
-
 ****
 
 ===== Calculation Layer
@@ -109,6 +136,22 @@ These can be optional.
 ThrustCalculator::
 This expects the momentary `DroneState` and the expected `DroneState`.
 It will try to calculate the rotors thrusts to minimize the differences.
+
+There are multiple thrust calculators for different aircrafts.
+Currently implemented are:
+
+|===
+|Name |Parameter
+
+|ThrustCalculatorQuadroCopter
+| - mass
+
+- max. thrust per rotor
+
+- radius to the center of mass
+
+- scalar factor of the inertia torque (optional)
+|===
 ****
 
 ===== Output Layer

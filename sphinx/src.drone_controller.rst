@@ -1,6 +1,17 @@
 src.drone\_controller package
 =============================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   src.drone_controller.calculation_layer
+   src.drone_controller.exception
+   src.drone_controller.input_layer
+   src.drone_controller.util
+
 Submodules
 ----------
 
