@@ -11,6 +11,7 @@ setup(
     version='1.0.0',
     packages=['src', 'src.drone_controller', 'test'],
     url='https://www.github.com/treeandsea/DroneController',
+    download_url='https://github.com/treeandsea/DroneController/releases',
     license='GPL-3.0',
     author='Segelzwerg, TreeKid',
     author_email='marcel.haas@hhu.de',
