@@ -40,14 +40,14 @@ jobs:
           python3 -m pip install --upgrade pip
           python3 -m pip install -r ./requirements.txt
 
+      - name: Create Dependency Graph
+        run: pydeps -o docs/deps.svg drone_controller
+
       - name: Sphinx Apidoc
         run: sphinx-apidoc -o docs/sphinx drone_controller
 
       - name: Build Sphinx
         run: sphinx-build -b html sphinx docs/sphinx
-
-      - name: Create Dependency Graph
-        run: pydeps -o docs/deps.svg drone_controller
 
       - name: Get build container
         id: adocbuild
