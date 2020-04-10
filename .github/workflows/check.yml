@@ -36,14 +36,14 @@ jobs:
 
       - name: Python Pylint Github Action
         run: |
-          pylint --rcfile=.pylintrc -j 2 src test
+          pylint --rcfile=.pylintrc -j 2 drone_controller test
 
       - name: Radon CC & MI
         id: cc
         run: |
           mkdir radon
-          radon cc ./src -s -j > radon/cc.json
-          radon mi ./src -j > radon/mi.json
+          radon cc ./drone_controller -s -j > radon/cc.json
+          radon mi ./drone_controller -j > radon/mi.json
 
       - name: Upload Radon
         uses: actions/upload-artifact@v1

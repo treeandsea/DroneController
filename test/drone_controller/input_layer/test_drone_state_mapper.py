@@ -1,7 +1,7 @@
 from unittest import TestCase
 
-from src.drone_controller.input_layer.drone_state import DroneState
-from src.drone_controller.input_layer.drone_state_mapper import DroneStateMapper
+from drone_controller.input_layer.drone_state import DroneState
+from drone_controller.input_layer.drone_state_mapper import DroneStateMapper
 
 ONE_UP = {"Rotation Forward": 0,
           'Rotation Right': 0,

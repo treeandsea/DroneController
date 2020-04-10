@@ -1,4 +1,4 @@
-from src.drone_controller.util.list_operators import add_lists, subtract_lists, multiply_lists
+from drone_controller.util.list_operators import add_lists, subtract_lists, multiply_lists
 
 FIRST = [1, 2, 3]
 SECOND = [4, 5, 6]
