@@ -8,7 +8,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='DroneController',
-    version='1.0.0',
+    version='1.0.1',
     packages=['src', 'src.drone_controller', 'test'],
     keywords='drone flying controller aviation',
     url='https://www.github.com/treeandsea/DroneController',
