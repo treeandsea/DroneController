@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from drone_controller import DronePhysics
+from drone_controller.input_layer.drone_physics import DronePhysics
 
 
 class DronePhysicsTest(TestCase):

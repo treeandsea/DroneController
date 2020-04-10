@@ -2,8 +2,8 @@ import math
 
 import numpy
 
-from drone_controller import DroneState
-from drone_controller import add_lists
+from drone_controller.input_layer.drone_state import DroneState
+from drone_controller.util.list_operators import add_lists
 
 
 class DroneStateMapper:

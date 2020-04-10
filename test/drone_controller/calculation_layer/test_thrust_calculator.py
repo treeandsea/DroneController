@@ -1,7 +1,7 @@
 from unittest import TestCase
 
-from drone_controller import DroneState
-from drone_controller import ThrustCalculatorQuadroCopter
+from drone_controller.calculation_layer.thrust_calculator import ThrustCalculatorQuadroCopter
+from drone_controller.input_layer.drone_state import DroneState
 
 ZERO_VECTOR = [0, 0, 0]
 UP_VECTOR = [0, 0, 1]
