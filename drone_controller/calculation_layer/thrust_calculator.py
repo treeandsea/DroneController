@@ -3,8 +3,8 @@ import abc
 
 import numpy
 
-from src.drone_controller.input_layer.drone_state import DroneState
-from src.drone_controller.util.list_operators import subtract_lists
+from drone_controller import DroneState
+from drone_controller import subtract_lists
 
 GRAVITATIONAL_ACCELERATION = 9.81
 

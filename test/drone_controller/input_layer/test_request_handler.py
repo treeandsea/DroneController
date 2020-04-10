@@ -2,10 +2,10 @@ from unittest import TestCase
 
 from pytest import raises
 
-from src.drone_controller.exception.exceptions import UserInputError
-from src.drone_controller.input_layer.drone_physics import DronePhysics
-from src.drone_controller.input_layer.drone_state import DroneState
-from src.drone_controller.input_layer.request_handler import RequestHandler
+from drone_controller import DronePhysics
+from drone_controller import DroneState
+from drone_controller import UserInputError
+from drone_controller.input_layer.request_handler import RequestHandler
 
 
 class RequestHandlerTest(TestCase):

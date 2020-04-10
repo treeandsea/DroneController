@@ -2,7 +2,7 @@
 # a wrapper class needs more parameter
 import math
 
-from src.drone_controller.exception.exceptions import DroneControllerError
+from drone_controller import DroneControllerError
 
 
 def check_input(parameter, name):
