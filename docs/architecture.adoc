@@ -109,7 +109,7 @@ A wrapper for a dictionary containing the target state of the drone.
 |Key |Value
 
 |position
-|three dimensional vector of floats
+|three dimensional vector of floats (optional)
 
 |rotation
 |three dimensional vector of floats

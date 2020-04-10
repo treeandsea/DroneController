@@ -31,14 +31,14 @@ class QuadroCopterTest(TestCase):
         velocity_ang = ZERO_VECTOR
         acceleration = ZERO_VECTOR
         acceleration_ang = ZERO_VECTOR
-        current_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
-                                   acceleration_ang)
+        current_state = DroneState(rotation, velocity, velocity_ang, acceleration, acceleration_ang,
+                                   position)
 
         position = UP_VECTOR
         velocity = UP_VECTOR
         acceleration = UP_VECTOR
-        future_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
-                                  acceleration_ang)
+        future_state = DroneState(rotation, velocity, velocity_ang, acceleration, acceleration_ang,
+                                  position)
 
         needed_thrust = 21.61  # Newton
         relative_thrust_per_rotor = (needed_thrust / 4) / self.calculator.max_rotor_thrust
@@ -59,8 +59,8 @@ class QuadroCopterTest(TestCase):
         velocity_ang = ZERO_VECTOR
         acceleration = ZERO_VECTOR
         acceleration_ang = ZERO_VECTOR
-        current_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
-                                   acceleration_ang)
+        current_state = DroneState(rotation, velocity, velocity_ang, acceleration, acceleration_ang,
+                                   position)
 
         position = [0, 0.174, 0.985]
         rotation = [10, 0, 0]
@@ -68,8 +68,8 @@ class QuadroCopterTest(TestCase):
         velocity_ang = [0.174, 0, 0]
         acceleration = [0, 0.174, 0.985]
         acceleration_ang = [0.174, 0, 0]
-        future_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
-                                  acceleration_ang)
+        future_state = DroneState(rotation, velocity, velocity_ang, acceleration, acceleration_ang,
+                                  position)
 
         thrusts = self.calculator.calc(current_state, future_state)
 
