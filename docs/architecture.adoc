@@ -118,7 +118,7 @@ A wrapper for a dictionary containing the target state of the drone.
 |three dimensional vector of floats
 
 |angular velocity
-|three dimensional vector of floats
+|three dimensional vector of floats (optional)
 
 |translation acceleration
 |three dimensional vector of floats

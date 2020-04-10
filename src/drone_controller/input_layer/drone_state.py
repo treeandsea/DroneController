@@ -24,8 +24,8 @@ class DroneState:
     Wrapper class for the state of the drone.
     """
 
-    def __init__(self, rotation, velocity, velocity_ang, acceleration, acceleration_ang,
-                 position=(0., 0., 0.)):
+    def __init__(self, rotation, velocity, acceleration, acceleration_ang, position=(0., 0., 0.),
+                 velocity_ang=(0., 0., 0.)):
         """
         Uses a three dimensional position vector, containing x,y,z coordinates.
         :param position: 3D vector of the drone's position
@@ -91,8 +91,8 @@ class DroneState:
         velocity_ang = state['Angular Velocity']
         acceleration = state['Acceleration']
         acceleration_ang = state['Angular Acceleration']
-        return cls(rotation, velocity, velocity_ang, acceleration,
-                   acceleration_ang, position)
+        return cls(rotation, velocity, acceleration,
+                   acceleration_ang, position, velocity_ang)
 
     def __str__(self):
         """
