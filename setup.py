@@ -1,7 +1,7 @@
 """
 Sets up the project with all the meta information.
 """
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open("README.md", "r") as fh:
     LONG_DESCRIPTION = fh.read()
@@ -9,7 +9,7 @@ with open("README.md", "r") as fh:
 setup(
     name='DroneController',
     version='1.0.1',
-    packages=['drone_controller'],
+    packages=find_packages(),
     keywords='drone flying controller aviation',
     url='https://www.github.com/treeandsea/DroneController',
     download_url='https://github.com/treeandsea/DroneController/releases',
