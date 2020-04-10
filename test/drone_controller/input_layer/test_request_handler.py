@@ -7,6 +7,8 @@ from drone_controller.input_layer.drone_physics import DronePhysics
 from drone_controller.input_layer.drone_state import DroneState
 from drone_controller.input_layer.request_handler import RequestHandler
 
+DRONE_STATE_ZERO = DroneState([0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0])
+
 
 class RequestHandlerTest(TestCase):
     """
@@ -20,7 +22,9 @@ class RequestHandlerTest(TestCase):
         self.handler = RequestHandler("Quadrocopter", self.mass, self.max_rotor_thrust, radius)
 
     def test_simple_up_keyboard(self):
-        drone_state = DroneState([0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0])
+        """
+        Tests a simple up input.
+        """
 
         user_input = {'Rotation Forward': 0,
                       'Rotation Right': 0,
@@ -30,7 +34,7 @@ class RequestHandlerTest(TestCase):
 
         expected_thrusts = [10.81 * self.mass / 4 / self.max_rotor_thrust] * 4
 
-        thrusts: list = self.handler.keyboard_input(drone_state, user_input)
+        thrusts: list = self.handler.keyboard_input(DRONE_STATE_ZERO, user_input)
 
         self.assertEqual(expected_thrusts, thrusts)
 
@@ -39,10 +43,8 @@ class RequestHandlerTest(TestCase):
         Test if exception is thrown upon wrong user input.
         """
         with raises(UserInputError):
-            drone_state = DroneState([0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0],
-                                     [0, 0, 0])
             user_input = {'velocity': [1, 1, 1]}
-            self.handler.keyboard_input(drone_state, user_input)
+            self.handler.keyboard_input(DRONE_STATE_ZERO, user_input)
 
     def test_from_drone_physics(self):
         """
