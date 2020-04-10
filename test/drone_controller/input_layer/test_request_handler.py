@@ -68,3 +68,38 @@ class RequestHandlerTest(TestCase):
                              f'\nActual:'
                              f'{other_calc.__dict__}')
         self.assertEqual(type(thrust_calc), type(other_calc))
+
+
+class FeedBackRequestHandler(TestCase):
+    """
+    Tests the request handler with feedback.
+    """
+
+    def setUp(self) -> None:
+        self.mass = 2
+        self.max_rotor_thrust = 20
+        radius = 1
+        self.handler = RequestHandler("Quadrocopter", self.mass, self.max_rotor_thrust, radius,
+                                      True)
+
+    def test_feedback_simple_up(self):
+        """
+        Tests if the request handler ignores any diversions of the drone.
+        """
+        # pylint: disable=protected-access
+        self.handler._previous_future_state = DroneState((0.1, 0.1, 0.), ZERO_VECTOR, ZERO_VECTOR,
+                                                         ZERO_VECTOR, ZERO_VECTOR)
+        user_input = {'Rotation Forward': 0,
+                      'Rotation Right': 0,
+                      'Rotation Backward': 0,
+                      'Rotation Left': 0,
+                      'Acceleration': 1}
+
+        expected_thrusts = [10.81 * self.mass / 4 / self.max_rotor_thrust] * 4
+
+        thrusts: list = self.handler.keyboard_input(DRONE_STATE_ZERO, user_input)
+
+        self.assertEqual(len(expected_thrusts), len(thrusts))
+
+        for expected, thrust in zip(expected_thrusts, thrusts):
+            self.assertAlmostEqual(expected, thrust, delta=0.001)
