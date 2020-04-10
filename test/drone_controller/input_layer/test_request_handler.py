@@ -7,7 +7,10 @@ from drone_controller.input_layer.drone_physics import DronePhysics
 from drone_controller.input_layer.drone_state import DroneState
 from drone_controller.input_layer.request_handler import RequestHandler
 
-DRONE_STATE_ZERO = DroneState([0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0])
+ZERO_VECTOR = [0, 0, 0]
+
+DRONE_STATE_ZERO = DroneState(ZERO_VECTOR, ZERO_VECTOR, ZERO_VECTOR, ZERO_VECTOR, ZERO_VECTOR,
+                              ZERO_VECTOR)
 
 
 class RequestHandlerTest(TestCase):
