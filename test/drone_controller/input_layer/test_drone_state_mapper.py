@@ -36,14 +36,14 @@ class TestDroneStateMapper(TestCase):
         acceleration = UP_VECTOR
         acceleration_ang = ZERO_VECTOR
 
-        expected_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
-                                    acceleration_ang)
+        expected_state = DroneState(rotation, velocity, acceleration, acceleration_ang, position,
+                                    velocity_ang)
 
         position = ZERO_VECTOR
         velocity = ZERO_VECTOR
         acceleration = ZERO_VECTOR
-        drone_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
-                                 acceleration_ang)
+        drone_state = DroneState(rotation, velocity, acceleration, acceleration_ang, position,
+                                 velocity_ang)
 
         user_input = ONE_UP
 
@@ -65,8 +65,8 @@ class TestDroneStateMapper(TestCase):
         acceleration = ZERO_VECTOR
         acceleration_ang = ZERO_VECTOR
 
-        drone_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
-                                 acceleration_ang)
+        drone_state = DroneState(rotation, velocity, acceleration, acceleration_ang, position,
+                                 velocity_ang)
 
         user_input = ONE_UP
 
@@ -74,8 +74,8 @@ class TestDroneStateMapper(TestCase):
         velocity = UP_VECTOR
         acceleration = UP_VECTOR
 
-        expected_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
-                                    acceleration_ang)
+        expected_state = DroneState(rotation, velocity, acceleration, acceleration_ang, position,
+                                    velocity_ang)
 
         future_state: DroneState = self.mapper.keyboard(drone_state, user_input)
 
@@ -95,8 +95,8 @@ class TestDroneStateMapper(TestCase):
         acceleration = ZERO_VECTOR
         acceleration_ang = ZERO_VECTOR
 
-        drone_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
-                                 acceleration_ang)
+        drone_state = DroneState(rotation, velocity, acceleration, acceleration_ang, position,
+                                 velocity_ang)
 
         position = [0, 0.174, 0.985]
         rotation = [10.0, 0.0, 0.0]
@@ -105,8 +105,8 @@ class TestDroneStateMapper(TestCase):
         acceleration = [0, 0.174, 0.985]
         acceleration_ang = [0.174, 0.0, 0.0]  # rad/s^2
 
-        expected_state = DroneState(position, rotation, velocity, velocity_ang, acceleration,
-                                    acceleration_ang)
+        expected_state = DroneState(rotation, velocity, acceleration, acceleration_ang, position,
+                                    velocity_ang)
 
         user_input = {"Rotation Forward": 0,
                       'Rotation Right': 1,

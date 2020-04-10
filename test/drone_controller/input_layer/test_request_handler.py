@@ -19,8 +19,7 @@ class RequestHandlerTest(TestCase):
         radius = 1
         self.handler = RequestHandler("Quadrocopter", mass, max_rotor_thrust, radius)
 
-        drone_state = DroneState([0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0],
-                                 [0, 0, 0])
+        drone_state = DroneState([0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0])
 
         user_input = {'Rotation Forward': 0,
                       'Rotation Right': 0,
