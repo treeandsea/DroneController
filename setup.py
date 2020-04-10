@@ -9,7 +9,7 @@ with open("README.md", "r") as fh:
 setup(
     name='DroneController',
     version='1.0.1',
-    packages=['src', 'src.drone_controller', 'test'],
+    packages=['drone_controller'],
     keywords='drone flying controller aviation',
     url='https://www.github.com/treeandsea/DroneController',
     download_url='https://github.com/treeandsea/DroneController/releases',

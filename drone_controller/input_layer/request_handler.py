@@ -1,14 +1,13 @@
 """
 This module handles all requests. This will cover REST calls as well as native python calls.
 """
-from src.drone_controller.calculation_layer.thrust_calculator import ThrustCalculatorQuadroCopter
-from src.drone_controller.exception.exceptions import UserInputError
-from src.drone_controller.input_layer.drone_physics import DronePhysics
-from src.drone_controller.input_layer.drone_state import DroneState
-from src.drone_controller.input_layer.drone_state_mapper import DroneStateMapper
-
 
 # pylint: disable=too-few-public-methods
+from drone_controller.calculation_layer.thrust_calculator import ThrustCalculatorQuadroCopter
+from drone_controller.exception.exceptions import UserInputError
+from drone_controller.input_layer.drone_physics import DronePhysics
+from drone_controller.input_layer.drone_state import DroneState
+from drone_controller.input_layer.drone_state_mapper import DroneStateMapper
 
 
 class RequestHandler:

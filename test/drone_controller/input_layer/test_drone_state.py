@@ -1,6 +1,6 @@
 from pytest import raises
 
-from src.drone_controller.input_layer.drone_state import DroneState, DroneStateError
+from drone_controller.input_layer.drone_state import DroneState, DroneStateError
 
 
 def test_create_three_dimensional_position():
