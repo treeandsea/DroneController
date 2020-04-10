@@ -14,11 +14,12 @@ class RequestHandlerTest(TestCase):
     """
 
     def setUp(self) -> None:
-        mass = 2
-        max_rotor_thrust = 20
+        self.mass = 2
+        self.max_rotor_thrust = 20
         radius = 1
-        self.handler = RequestHandler("Quadrocopter", mass, max_rotor_thrust, radius)
+        self.handler = RequestHandler("Quadrocopter", self.mass, self.max_rotor_thrust, radius)
 
+    def test_simple_up_keyboard(self):
         drone_state = DroneState([0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0])
 
         user_input = {'Rotation Forward': 0,
@@ -27,7 +28,7 @@ class RequestHandlerTest(TestCase):
                       'Rotation Left': 0,
                       'Acceleration': 1}
 
-        expected_thrusts = [10.81 * mass / 4 / max_rotor_thrust] * 4
+        expected_thrusts = [10.81 * self.mass / 4 / self.max_rotor_thrust] * 4
 
         thrusts: list = self.handler.keyboard_input(drone_state, user_input)
 
