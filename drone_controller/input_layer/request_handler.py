@@ -65,10 +65,7 @@ class RequestHandler:
 
         state_mapper = DroneStateMapper()
         if self.feedback:
-            if self._previous_future_state is not None:
-                previous_future_state = self._previous_future_state
-            else:
-                previous_future_state = drone_state
+            previous_future_state = self._previous_future_state or drone_state
 
             expected_state = state_mapper.keyboard(previous_future_state, user_input)
             self._previous_future_state = expected_state
