@@ -2,7 +2,7 @@
 This module handles all requests. This will cover REST calls as well as native python calls.
 """
 
-# pylint: disable=too-few-public-methods
+# pylint: disable=too-many-arguments
 from drone_controller.calculation_layer.thrust_calculator import ThrustCalculatorQuadroCopter
 from drone_controller.exception.exceptions import UserInputError
 from drone_controller.input_layer.drone_physics import DronePhysics
@@ -15,7 +15,8 @@ class RequestHandler:
     Handles request from python code.
     """
 
-    def __init__(self, aircraft_type: str, mass: float, max_rotor_thrust: float, radius: float):
+    def __init__(self, aircraft_type: str, mass: float, max_rotor_thrust: float, radius: float,
+                 feedback: bool = False, ):
         """
         Initializes the request handler. This should always be the entry point.
         :param aircraft_type: Name of the vehicle type the thrust should be calculated for.
@@ -30,6 +31,9 @@ class RequestHandler:
         else:
             raise NotImplementedError(f'This type {1} is not implemented yet',
                                       aircraft_type)
+
+        self.feedback = feedback
+        self._previous_future_state = None
 
     @classmethod
     def from_drone_physics(cls, aircraft_type: str, drone_physics: DronePhysics):
@@ -60,7 +64,13 @@ class RequestHandler:
             raise UserInputError(user_input, "The keyboard input is complete.")
 
         state_mapper = DroneStateMapper()
-        expected_state = state_mapper.keyboard(drone_state, user_input)
+        if self.feedback:
+            previous_future_state = self._previous_future_state or drone_state
+
+            expected_state = state_mapper.keyboard(previous_future_state, user_input)
+            self._previous_future_state = expected_state
+        else:
+            expected_state = state_mapper.keyboard(drone_state, user_input)
         return self._calc(drone_state, expected_state)
 
     def _calc(self, drone_state, expected_state):
