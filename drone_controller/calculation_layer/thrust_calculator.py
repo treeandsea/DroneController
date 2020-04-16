@@ -46,14 +46,19 @@ class ThrustCalculatorQuadroCopter(ThrustCalculator):
         :param future_state: the desired state of the drone
         :return: four relative thrusts values (for DC rotors)
         """
-        jerk = subtract_lists(future_state.state_dict['Acceleration'],
-                              current_state.state_dict['Acceleration'])
+        cur_dic = current_state.state_dict
+        future_dic = future_state.state_dict
+        jerk = subtract_lists(future_dic['Acceleration'],
+                              cur_dic['Acceleration'])
 
-        jerk_ang = subtract_lists(future_state.state_dict['Angular Acceleration'],
-                                  current_state.state_dict['Angular Acceleration'])
+        jerk_ang = subtract_lists(future_dic['Angular Acceleration'],
+                                  cur_dic['Angular Acceleration'])
 
         needed_acceleration = jerk[0:2]
-        needed_acceleration.append(jerk[2] + GRAVITATIONAL_ACCELERATION)
+
+        grav_acc = GRAVITATIONAL_ACCELERATION if cur_dic["Position"] != [0, 0, 0] else 0
+
+        needed_acceleration.append(jerk[2] + grav_acc)
         force = [x * self.mass for x in needed_acceleration]
 
         thrust_per_rotor = [(numpy.linalg.norm(force) / 4) / self.max_rotor_thrust] * 4
