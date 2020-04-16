@@ -25,6 +25,7 @@ class RequestHandler:
         every rotor is the same.
         :param radius: the horizontal distance from the center of mass of each rotor. It will
         also assume it the same for every rotor.
+        :param feedback: activates a feed back loop
         """
         if aircraft_type == 'Quadrocopter':
             self._thrust_calc = ThrustCalculatorQuadroCopter(mass, max_rotor_thrust, radius)
