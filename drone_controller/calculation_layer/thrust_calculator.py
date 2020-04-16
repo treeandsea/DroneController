@@ -56,7 +56,8 @@ class ThrustCalculatorQuadroCopter(ThrustCalculator):
 
         needed_acceleration = jerk[0:2]
 
-        grav_acc = GRAVITATIONAL_ACCELERATION if cur_dic["Position"] != [0, 0, 0] else 0
+        lift_need = future_dic["Position"] != [0, 0, 0] and jerk[2] != 0
+        grav_acc = GRAVITATIONAL_ACCELERATION if lift_need else 0
 
         needed_acceleration.append(jerk[2] + grav_acc)
         force = [x * self.mass for x in needed_acceleration]
