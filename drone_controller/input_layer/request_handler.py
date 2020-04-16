@@ -36,15 +36,19 @@ class RequestHandler:
         self._previous_future_state = None
 
     @classmethod
-    def from_drone_physics(cls, aircraft_type: str, drone_physics: DronePhysics):
+    def from_drone_physics(cls, aircraft_type: str,
+                           drone_physics: DronePhysics,
+                           feedback: bool = False):
         """
         Creates a request handler from drone physics.
+        :param feedback: flag for using state calculation with feedback loops.
         :param aircraft_type: Name of the vehicle type the thrust should be calculated for.
         :param drone_physics: wrapper of the physics of the drone
         :return: a request handler
         """
         physics_dict = drone_physics.physics_dict()
         return cls(aircraft_type,
+                   feedback,
                    physics_dict['mass'],
                    physics_dict['thrust_per_rotor'],
                    physics_dict['radius'])
