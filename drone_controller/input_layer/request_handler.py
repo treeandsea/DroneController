@@ -16,7 +16,7 @@ class RequestHandler:
     """
 
     def __init__(self, aircraft_type: str, mass: float, max_rotor_thrust: float, radius: float,
-                 feedback: bool = False, ):
+                 feedback: bool = False):
         """
         Initializes the request handler. This should always be the entry point.
         :param aircraft_type: Name of the vehicle type the thrust should be calculated for.
@@ -48,10 +48,10 @@ class RequestHandler:
         """
         physics_dict = drone_physics.physics_dict()
         return cls(aircraft_type,
-                   feedback,
                    physics_dict['mass'],
                    physics_dict['thrust_per_rotor'],
-                   physics_dict['radius'])
+                   physics_dict['radius'],
+                   feedback)
 
     def keyboard_input(self, drone_state: DroneState, user_input: dict) -> list:
         """
