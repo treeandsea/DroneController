@@ -16,7 +16,7 @@ class RequestHandler:
     """
 
     def __init__(self, aircraft_type: str, mass: float, max_rotor_thrust: float, radius: float,
-                 feedback: bool = False, ):
+                 feedback: bool = False):
         """
         Initializes the request handler. This should always be the entry point.
         :param aircraft_type: Name of the vehicle type the thrust should be calculated for.
@@ -25,6 +25,7 @@ class RequestHandler:
         every rotor is the same.
         :param radius: the horizontal distance from the center of mass of each rotor. It will
         also assume it the same for every rotor.
+        :param feedback: activates a feed back loop
         """
         if aircraft_type == 'Quadrocopter':
             self._thrust_calc = ThrustCalculatorQuadroCopter(mass, max_rotor_thrust, radius)
@@ -36,9 +37,12 @@ class RequestHandler:
         self._previous_future_state = None
 
     @classmethod
-    def from_drone_physics(cls, aircraft_type: str, drone_physics: DronePhysics):
+    def from_drone_physics(cls, aircraft_type: str,
+                           drone_physics: DronePhysics,
+                           feedback: bool = False):
         """
         Creates a request handler from drone physics.
+        :param feedback: flag for using state calculation with feedback loops.
         :param aircraft_type: Name of the vehicle type the thrust should be calculated for.
         :param drone_physics: wrapper of the physics of the drone
         :return: a request handler
@@ -47,7 +51,8 @@ class RequestHandler:
         return cls(aircraft_type,
                    physics_dict['mass'],
                    physics_dict['thrust_per_rotor'],
-                   physics_dict['radius'])
+                   physics_dict['radius'],
+                   feedback)
 
     def keyboard_input(self, drone_state: DroneState, user_input: dict) -> list:
         """

@@ -21,6 +21,28 @@ class QuadroCopterTest(TestCase):
         radius = 1  # m
         self.calculator = ThrustCalculatorQuadroCopter(mass, rotor_thrust, radius)
 
+    def test_zero(self):
+        """
+        With zero input nothing should happen.
+        """
+        position = ZERO_VECTOR
+        rotation = ZERO_VECTOR
+        velocity = ZERO_VECTOR
+        velocity_ang = ZERO_VECTOR
+        acceleration = ZERO_VECTOR
+        acceleration_ang = ZERO_VECTOR
+        current_state = DroneState(rotation, velocity, acceleration, acceleration_ang, position,
+                                   velocity_ang)
+
+        future_state = current_state
+
+        expected_thrusts = [0.] * 4
+
+        thrusts = self.calculator.calc(current_state, future_state)
+
+        for expected_thrust, thrust in zip(expected_thrusts, thrusts):
+            self.assertAlmostEqual(expected_thrust, thrust, delta=0.001)
+
     def test_calc_simple_up(self):
         """
         Tests the thrust calculation for drone from ground one meter up.
