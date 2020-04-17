@@ -90,6 +90,12 @@ class RequestHandler:
         """
         return self._thrust_calc.calc(drone_state, expected_state)
 
+    def reset(self):
+        """
+        Resets the feedback loop. Useful if the environment is reset.
+        """
+        self._previous_future_state = None
+
     def __eq__(self, other):
         if not isinstance(other, RequestHandler):
             return False

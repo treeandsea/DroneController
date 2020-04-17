@@ -80,7 +80,7 @@ class FeedBackRequestHandler(TestCase):
         self.max_rotor_thrust = 20
         radius = 1
         self.handler = RequestHandler("Quadrocopter", self.mass, self.max_rotor_thrust, radius,
-                                      True)
+                                      feedback=True)
 
     def test_feedback_simple_up(self):
         """
@@ -103,3 +103,19 @@ class FeedBackRequestHandler(TestCase):
 
         for expected, thrust in zip(expected_thrusts, thrusts):
             self.assertAlmostEqual(expected, thrust, delta=0.001)
+
+    def test_reset(self):
+        """
+        Tests if the reset function is working.
+        """
+        # pylint: disable=protected-access
+        user_input = {'Rotation Forward': 0,
+                      'Rotation Right': 0,
+                      'Rotation Backward': 0,
+                      'Rotation Left': 0,
+                      'Acceleration': 1}
+        self.handler.keyboard_input(DRONE_STATE_ZERO, user_input)
+
+        self.assertIsNotNone(self.handler._previous_future_state)
+        self.handler.reset()
+        self.assertIsNone(self.handler._previous_future_state)
