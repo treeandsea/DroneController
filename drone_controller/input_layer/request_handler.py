@@ -45,6 +45,7 @@ class RequestHandler:
                            feedback: bool = False):
         """
         Creates a request handler from drone physics.
+        :param angle_per_step: the angle change per binary step.
         :param feedback: flag for using state calculation with feedback loops.
         :param aircraft_type: Name of the vehicle type the thrust should be calculated for.
         :param drone_physics: wrapper of the physics of the drone
