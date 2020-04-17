@@ -3,6 +3,7 @@ from unittest import TestCase
 from drone_controller.calculation_layer.thrust_calculator import ThrustCalculatorQuadroCopter
 from drone_controller.input_layer.drone_state import DroneState
 
+GRAVITATIONAL_ACCELERATION = 9.81
 ZERO_VECTOR = [0, 0, 0]
 UP_VECTOR = [0, 0, 1]
 
@@ -98,3 +99,19 @@ class QuadroCopterTest(TestCase):
         print(thrusts)
         self.assertGreater(thrusts[1], thrusts[3])
         self.assertAlmostEqual(thrusts[0], thrusts[2])
+
+    def test_downwards_acceleration(self):
+        """
+        Tests if the downwards acceleration is working.
+        """
+        current_state = DroneState(ZERO_VECTOR, ZERO_VECTOR, UP_VECTOR,
+                                   ZERO_VECTOR, UP_VECTOR)
+
+        future_state = DroneState(ZERO_VECTOR, ZERO_VECTOR, ZERO_VECTOR, ZERO_VECTOR)
+
+        thrusts = self.calculator.calc(current_state, future_state)
+        for thrust in thrusts:
+            self.assertLess(thrust,
+                            GRAVITATIONAL_ACCELERATION,
+                            msg=f'\nExpected less then: {GRAVITATIONAL_ACCELERATION}\n'
+                                f'Actual was: {thrust}')
