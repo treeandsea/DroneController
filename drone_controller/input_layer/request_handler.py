@@ -16,7 +16,7 @@ class RequestHandler:
     """
 
     def __init__(self, aircraft_type: str, mass: float, max_rotor_thrust: float, radius: float,
-                 feedback: bool = False):
+                 angle_per_step: float = 10., feedback: bool = False):
         """
         Initializes the request handler. This should always be the entry point.
         :param aircraft_type: Name of the vehicle type the thrust should be calculated for.
@@ -25,8 +25,10 @@ class RequestHandler:
         every rotor is the same.
         :param radius: the horizontal distance from the center of mass of each rotor. It will
         also assume it the same for every rotor.
+        :param angle_per_step: for binary input this is the angle of rotation changed each step.
         :param feedback: activates a feed back loop
         """
+        self._angle_per_step = angle_per_step
         if aircraft_type == 'Quadrocopter':
             self._thrust_calc = ThrustCalculatorQuadroCopter(mass, max_rotor_thrust, radius)
         else:
@@ -68,7 +70,7 @@ class RequestHandler:
                                                  "Acceleration"]):
             raise UserInputError(user_input, "The keyboard input is complete.")
 
-        state_mapper = DroneStateMapper()
+        state_mapper = DroneStateMapper(angle_per_step=self._angle_per_step)
         if self.feedback:
             previous_future_state = self._previous_future_state or drone_state
 
