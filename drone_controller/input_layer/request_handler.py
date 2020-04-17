@@ -41,9 +41,11 @@ class RequestHandler:
     @classmethod
     def from_drone_physics(cls, aircraft_type: str,
                            drone_physics: DronePhysics,
+                           angle_per_step: float = 10.,
                            feedback: bool = False):
         """
         Creates a request handler from drone physics.
+        :param angle_per_step: the angle change per binary step.
         :param feedback: flag for using state calculation with feedback loops.
         :param aircraft_type: Name of the vehicle type the thrust should be calculated for.
         :param drone_physics: wrapper of the physics of the drone
@@ -54,6 +56,7 @@ class RequestHandler:
                    physics_dict['mass'],
                    physics_dict['thrust_per_rotor'],
                    physics_dict['radius'],
+                   angle_per_step,
                    feedback)
 
     def keyboard_input(self, drone_state: DroneState, user_input: dict) -> list:
