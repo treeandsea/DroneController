@@ -80,7 +80,7 @@ class FeedBackRequestHandler(TestCase):
         self.max_rotor_thrust = 20
         radius = 1
         self.handler = RequestHandler("Quadrocopter", self.mass, self.max_rotor_thrust, radius,
-                                      True)
+                                      feedback=True)
 
     def test_feedback_simple_up(self):
         """
