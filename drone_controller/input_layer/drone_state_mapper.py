@@ -51,11 +51,11 @@ class DroneStateMapper:
         return normalized_rotations
 
     @staticmethod
-    def acceleration(current_acceleration, user_acceleration, rotation):
+    def acceleration(current_acceleration: iter, user_acceleration: float, rotation: iter) -> list:
         """
         Calculates the acceleration for the next state
         :param current_acceleration: the acceleration of the current state
-        :param user_acceleration: the accelerationn change for the next step
+        :param user_acceleration: the acceleration change for the next step
         :param rotation: the rotation for the next step
         :return: the acceleration of the next step
         """
