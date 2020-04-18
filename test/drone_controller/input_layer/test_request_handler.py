@@ -8,6 +8,9 @@ from drone_controller.input_layer.drone_state import DroneState
 from drone_controller.input_layer.request_handler import RequestHandler
 
 ZERO_VECTOR = [0, 0, 0]
+UP_VECTOR = [0, 0, 1]
+
+GRAVITATIONAL_ACCELERATION = 9.81
 
 DRONE_STATE_ZERO = DroneState(ZERO_VECTOR, ZERO_VECTOR, ZERO_VECTOR, ZERO_VECTOR, ZERO_VECTOR,
                               ZERO_VECTOR)
@@ -119,3 +122,24 @@ class FeedBackRequestHandler(TestCase):
         self.assertIsNotNone(self.handler._previous_future_state)
         self.handler.reset()
         self.assertIsNone(self.handler._previous_future_state)
+
+    def test_downward(self):
+        """
+        Test if the request for downwards acceleration is working.
+        """
+        current_state = DroneState(ZERO_VECTOR, ZERO_VECTOR, UP_VECTOR,
+                                   ZERO_VECTOR, UP_VECTOR)
+
+        user_input = {'Rotation Forward': 0,
+                      'Rotation Right': 0,
+                      'Rotation Backward': 0,
+                      'Rotation Left': 0,
+                      'Acceleration': -1}
+
+        thrusts = self.handler.keyboard_input(current_state, user_input)
+
+        for thrust in thrusts:
+            self.assertLess(thrust,
+                            GRAVITATIONAL_ACCELERATION,
+                            msg=f'\nExpected less then: {GRAVITATIONAL_ACCELERATION}\n'
+                                f'Actual was: {thrust}')
