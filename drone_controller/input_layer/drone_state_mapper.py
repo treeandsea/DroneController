@@ -35,7 +35,8 @@ class DroneStateMapper:
         state['Angular Velocity'] = add_lists(state['Angular Velocity'],
                                               state['Angular Acceleration'])
 
-        state['Position'] = add_lists(state['Position'], state['Velocity'])
+        if state['Position'] is not None:
+            state['Position'] = add_lists(state['Position'], state['Velocity'])
         return DroneState.from_dict(state)
 
     @staticmethod
