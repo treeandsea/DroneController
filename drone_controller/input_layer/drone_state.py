@@ -118,10 +118,11 @@ class DroneState:
 
         for (keys, state_values, other_values) in zip(state_dict.keys(), state_dict.values(),
                                                       other_state_dict.values()):
-            for a_item, b_item in zip(state_values, other_values):
-                if math.fabs(a_item - b_item) > self._float_precision:
-                    print(f'Unequal at {keys} {a_item} != {b_item}')
-                    return False
+            if state_values is not None and other_values is not None:
+                for a_item, b_item in zip(state_values, other_values):
+                    if math.fabs(a_item - b_item) > self._float_precision:
+                        print(f'Unequal at {keys} {a_item} != {b_item}')
+                        return False
         return True
 
 
