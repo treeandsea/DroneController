@@ -64,8 +64,9 @@ class DroneStateMapper:
         magnitude = numpy.linalg.norm(current) + user_acceleration
         acceleration = [angle * user_acceleration for angle in reversed(rotation[0:2])]
         acceleration = add_lists(acceleration, current_acceleration[0:2])
-        acceleration.append(math.sqrt(math.pow(magnitude, 2) - math.pow(acceleration[0], 2) -
-                                      math.pow(acceleration[1], 2)))
+        length_z_acc = math.sqrt(math.pow(magnitude, 2) - math.pow(acceleration[0], 2) -
+                                 math.pow(acceleration[1], 2))
+        acceleration.append(numpy.copysign(length_z_acc, magnitude))
         return acceleration
 
     def angular_acceleration(self, state, user_input):
