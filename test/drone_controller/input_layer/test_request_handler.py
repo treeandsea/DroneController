@@ -8,9 +8,9 @@ from drone_controller.input_layer.drone_state import DroneState
 from drone_controller.input_layer.request_handler import RequestHandler
 
 ZERO_VECTOR = [0, 0, 0]
+UP_VECTOR = [0, 0, 1]
 
-DRONE_STATE_ZERO = DroneState(ZERO_VECTOR, ZERO_VECTOR, ZERO_VECTOR, ZERO_VECTOR, ZERO_VECTOR,
-                              ZERO_VECTOR)
+DRONE_STATE_ZERO = DroneState(ZERO_VECTOR, ZERO_VECTOR, ZERO_VECTOR, ZERO_VECTOR)
 
 
 class RequestHandlerTest(TestCase):
@@ -119,3 +119,35 @@ class FeedBackRequestHandler(TestCase):
         self.assertIsNotNone(self.handler._previous_future_state)
         self.handler.reset()
         self.assertIsNone(self.handler._previous_future_state)
+
+    def test_stay_on_pos_airborne(self):
+        """
+        Tests if the request handler tries to stay at the same spot in the air.
+        """
+        # pylint: disable=protected-access
+
+        user_input = {'Rotation Forward': 0,
+                      'Rotation Right': 0,
+                      'Rotation Backward': 0,
+                      'Rotation Left': 0,
+                      'Acceleration': 1}
+
+        expected_thrusts = [9.81 * self.mass / 4 / self.max_rotor_thrust] * 4
+
+        self.handler.keyboard_input(DRONE_STATE_ZERO, user_input)
+
+        user_input = {'Rotation Forward': 0,
+                      'Rotation Right': 0,
+                      'Rotation Backward': 0,
+                      'Rotation Left': 0,
+                      'Acceleration': -1}
+
+        state = DroneState(ZERO_VECTOR, UP_VECTOR, UP_VECTOR, ZERO_VECTOR)
+        self.handler.keyboard_input(state, user_input)
+
+        thrusts: list = self.handler.keyboard_input(DRONE_STATE_ZERO, user_input)
+
+        self.assertEqual(len(expected_thrusts), len(thrusts))
+
+        for expected, thrust in zip(expected_thrusts, thrusts):
+            self.assertAlmostEqual(expected, thrust, delta=0.001)
