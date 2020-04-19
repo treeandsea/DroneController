@@ -10,6 +10,7 @@ ONE_UP = {"Rotation Forward": 0,
           "Acceleration": 1}
 
 UP_VECTOR = [0.0, 0.0, 1.0]
+DOWN_VECTOR = [0.0, 0.0, -1.0]
 
 ZERO_VECTOR = [0.0, 0.0, 0.0]
 
@@ -152,7 +153,7 @@ class TestDroneStateMapper(TestCase):
                       "Rotation Left": 0,
                       "Acceleration": -1}
 
-        expected_state = DroneState(ZERO_VECTOR, ZERO_VECTOR, ZERO_VECTOR, ZERO_VECTOR)
+        expected_state = DroneState(ZERO_VECTOR, ZERO_VECTOR, DOWN_VECTOR, ZERO_VECTOR)
 
         future_state = self.mapper.keyboard(state, user_input)
 
