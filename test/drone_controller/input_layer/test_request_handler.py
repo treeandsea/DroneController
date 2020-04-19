@@ -142,10 +142,11 @@ class FeedBackRequestHandler(TestCase):
                       'Rotation Left': 0,
                       'Acceleration': -1}
 
-        state = DroneState(ZERO_VECTOR, UP_VECTOR, UP_VECTOR, ZERO_VECTOR)
+        state = self.handler._previous_future_state
         self.handler.keyboard_input(state, user_input)
 
-        thrusts: list = self.handler.keyboard_input(DRONE_STATE_ZERO, user_input)
+        state = self.handler._previous_future_state
+        thrusts: list = self.handler.keyboard_input(state, user_input)
 
         self.assertEqual(len(expected_thrusts), len(thrusts))
 
