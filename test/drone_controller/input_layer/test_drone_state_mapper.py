@@ -120,3 +120,23 @@ class TestDroneStateMapper(TestCase):
                                                            f'{future_state.__str__()}\n\n'
                                                            f'Expected:\n'
                                                            f'{expected_state.__str__()}')
+
+    def test_stop_acceleration(self):
+        """
+        Tests if the drone can be stopped.
+        """
+        state = DroneState(ZERO_VECTOR, UP_VECTOR, UP_VECTOR, ZERO_VECTOR)
+        user_input = {"Rotation Forward": 0,
+                      'Rotation Right': 0,
+                      "Rotation Backward": 0,
+                      "Rotation Left": 0,
+                      "Acceleration": -1}
+
+        expected_state = DroneState(ZERO_VECTOR, UP_VECTOR, ZERO_VECTOR, ZERO_VECTOR)
+
+        future_state = self.mapper.keyboard(state, user_input)
+
+        self.assertEqual(future_state, expected_state, msg=f'Actual:\n'
+                                                           f'{future_state.__str__()}\n\n'
+                                                           f'Expected:\n'
+                                                           f'{expected_state.__str__()}')
