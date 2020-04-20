@@ -1,6 +1,6 @@
 import math
 
-import numpy
+import numpy as np
 
 from drone_controller.input_layer.drone_state import DroneState
 from drone_controller.util.list_operators import add_lists
@@ -46,9 +46,9 @@ class DroneStateMapper:
         :param rotation: 3D with angle values in degree
         :return: 3D vector
         """
-        radians = list([math.radians(x) for x in rotation])
-        normalized_rotations = list([math.sin(x) for x in radians[0:2]])
-        normalized_rotations.append(math.cos(rotation[2]))
+        radians = np.radians(rotation)
+        normalized_rotations = np.sin(radians)
+        normalized_rotations[-1] = np.cos(radians[2])
         return normalized_rotations
 
     @staticmethod
@@ -60,14 +60,16 @@ class DroneStateMapper:
         :param rotation: the rotation for the next step
         :return: the acceleration of the next step
         """
-        current = numpy.array(current_acceleration)
-        magnitude = numpy.linalg.norm(current) + user_acceleration
-        acceleration = [angle * user_acceleration for angle in reversed(rotation[0:2])]
-        acceleration = add_lists(acceleration, current_acceleration[0:2])
-        length_z_acc = math.sqrt(math.pow(magnitude, 2) - math.pow(acceleration[0], 2) -
-                                 math.pow(acceleration[1], 2))
-        acceleration.append(numpy.copysign(length_z_acc, magnitude))
-        return acceleration
+        # only use the acceleration in drone direction
+        current_acc = np.dot(current_acceleration, rotation)
+        acc_vec = (current_acc + user_acceleration) * np.array(rotation)
+
+        #acceleration = [angle * user_acceleration for angle in reversed(rotation[0:2])]
+        #acceleration = add_lists(acceleration, current_acceleration[0:2])
+        #length_z_acc = math.sqrt(math.pow(magnitude, 2) - math.pow(acceleration[0], 2) - math.pow(acceleration[1], 2))
+        #acceleration.append(np.copysign(length_z_acc, magnitude))
+
+        return acc_vec
 
     def angular_acceleration(self, state, user_input):
         """
@@ -76,16 +78,16 @@ class DroneStateMapper:
         :param user_input: the user input for the next step
         :return: the angular acceleration for the next step
         """
-        acceleration = state['Angular Acceleration']
+        angle_acc = state['Angular Acceleration']
 
         user_x = user_input['Rotation Right'] - user_input['Rotation Left']
         user_y = user_input['Rotation Forward'] - user_input['Rotation Backward']
 
-        acc_x = acceleration[0] + user_x * self._angle_per_step
-        acc_y = acceleration[0] + user_y * self._angle_per_step
+        acc_x = angle_acc[0] + user_x * self._angle_per_step
+        acc_y = angle_acc[0] + user_y * self._angle_per_step
 
-        acceleration_degree = [acc_x, acc_y, acceleration[2]]
-        return [math.sin(math.radians(x)) for x in acceleration_degree]
+        angle_acc_degree = np.array([acc_x, acc_y, angle_acc[2]])
+        return np.sin(np.radians(angle_acc_degree))
 
     def add_rotation(self, rotation, user_input):
         """
@@ -101,4 +103,4 @@ class DroneStateMapper:
         rot_y = rotation[1] + user_y * self._angle_per_step
         rot_z = rotation[2]
 
-        return [rot_x, rot_y, rot_z]
+        return np.array([rot_x, rot_y, rot_z])

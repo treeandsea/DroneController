@@ -1,7 +1,7 @@
 # pylint: disable=too-few-public-methods
 import abc
 
-import numpy
+import numpy as np
 
 from drone_controller.input_layer.drone_state import DroneState
 from drone_controller.util.list_operators import subtract_lists
@@ -48,21 +48,23 @@ class ThrustCalculatorQuadroCopter(ThrustCalculator):
         """
         cur_dic = current_state.state_dict
         future_dic = future_state.state_dict
-        jerk = subtract_lists(future_dic['Acceleration'],
-                              cur_dic['Acceleration'])
+        jerk = future_dic['Acceleration'] - cur_dic['Acceleration']
 
-        jerk_ang = subtract_lists(future_dic['Angular Acceleration'],
-                                  cur_dic['Angular Acceleration'])
+        jerk_ang = future_dic['Angular Acceleration'] - cur_dic['Angular Acceleration']
 
-        needed_acceleration = jerk[0:2]
+        needed_acceleration = np.zeros((3, ))
+        needed_acceleration[0:2] = jerk[0:2]
 
         lift_need = future_dic["Position"] != [0, 0, 0] and jerk[2] != 0
         grav_acc = GRAVITATIONAL_ACCELERATION if lift_need else 0
 
-        needed_acceleration.append(jerk[2] + grav_acc)
-        force = [x * self.mass for x in needed_acceleration]
+        needed_acceleration[2] = jerk[2] + grav_acc
+        force = self.mass * needed_acceleration
 
-        thrust_per_rotor = [(numpy.linalg.norm(force) / 4) / self.max_rotor_thrust] * 4
+        thrust_per_rotor = np.stack([(np.linalg.norm(force) / 4)] * 4)
+
+        # crop thrust at max_trust
+        thrust_per_rotor = np.clip(thrust_per_rotor, a_min=-self.max_rotor_thrust, a_max=self.max_rotor_thrust)
 
         # Add torque
         inertia_torque = self.mass * self.radius / (2 * self.inertia_flattening)

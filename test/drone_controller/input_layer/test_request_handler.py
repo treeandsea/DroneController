@@ -1,14 +1,14 @@
 from unittest import TestCase
 
 from pytest import raises
-
+import numpy as np
 from drone_controller.exception.exceptions import UserInputError
 from drone_controller.input_layer.drone_physics import DronePhysics
 from drone_controller.input_layer.drone_state import DroneState
 from drone_controller.input_layer.request_handler import RequestHandler
 
-ZERO_VECTOR = [0, 0, 0]
-UP_VECTOR = [0, 0, 1]
+ZERO_VECTOR = np.array([0, 0, 0])
+UP_VECTOR = np.array([0, 0, 1])
 
 DRONE_STATE_ZERO = DroneState(ZERO_VECTOR, ZERO_VECTOR, ZERO_VECTOR, ZERO_VECTOR)
 
@@ -132,7 +132,7 @@ class FeedBackRequestHandler(TestCase):
                       'Rotation Left': 0,
                       'Acceleration': 1}
 
-        expected_thrusts = [9.81 * self.mass / 4 / self.max_rotor_thrust] * 4
+        expected_thrusts = [(9.81 * self.mass) / 4] * 4
 
         self.handler.keyboard_input(DRONE_STATE_ZERO, user_input)
 
@@ -140,7 +140,7 @@ class FeedBackRequestHandler(TestCase):
                       'Rotation Right': 0,
                       'Rotation Backward': 0,
                       'Rotation Left': 0,
-                      'Acceleration': -1}
+                      'Acceleration': 0}
 
         state = self.handler._previous_future_state
         self.handler.keyboard_input(state, user_input)
