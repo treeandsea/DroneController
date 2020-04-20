@@ -63,9 +63,6 @@ class ThrustCalculatorQuadroCopter(ThrustCalculator):
 
         thrust_per_rotor = np.stack([(np.linalg.norm(force) / (4 * self.max_rotor_thrust))] * 4)
 
-        # crop thrust at max_trust
-        thrust_per_rotor = np.clip(thrust_per_rotor, a_min=-self.max_rotor_thrust, a_max=self.max_rotor_thrust)
-
         # Add torque
         inertia_torque = self.mass * self.radius / (2 * self.inertia_flattening)
 
