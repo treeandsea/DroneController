@@ -140,7 +140,7 @@ class FeedBackRequestHandler(TestCase):
                       'Rotation Right': 0,
                       'Rotation Backward': 0,
                       'Rotation Left': 0,
-                      'Acceleration': 0}
+                      'Acceleration': -1}
 
         state = self.handler._previous_future_state
         self.handler.keyboard_input(state, user_input)
