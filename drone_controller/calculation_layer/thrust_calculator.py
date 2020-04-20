@@ -61,7 +61,7 @@ class ThrustCalculatorQuadroCopter(ThrustCalculator):
         needed_acceleration[2] = jerk[2] + grav_acc
         force = self.mass * needed_acceleration
 
-        thrust_per_rotor = np.stack([(np.linalg.norm(force) / 4)] * 4)
+        thrust_per_rotor = np.stack([(np.linalg.norm(force) / (4 * self.max_rotor_thrust))] * 4)
 
         # crop thrust at max_trust
         thrust_per_rotor = np.clip(thrust_per_rotor, a_min=-self.max_rotor_thrust, a_max=self.max_rotor_thrust)
