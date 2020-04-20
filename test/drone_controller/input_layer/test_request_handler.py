@@ -132,7 +132,7 @@ class FeedBackRequestHandler(TestCase):
                       'Rotation Left': 0,
                       'Acceleration': 1}
 
-        expected_thrusts = [(9.81 * self.mass) / 4] * 4
+        expected_thrusts = [(9.81 * self.mass) / (4 * self.max_rotor_thrust)] * 4
 
         self.handler.keyboard_input(DRONE_STATE_ZERO, user_input)
 
